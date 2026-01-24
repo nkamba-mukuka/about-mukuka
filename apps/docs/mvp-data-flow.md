@@ -69,3 +69,4 @@ It ensures clarity for developers, designers, and stakeholders.
 | Backend API        | Frontend (CoffeeCup)     | Sends formatted response                    |
 | CoffeeCup          | Renders text             | Animation and display                       |
 | Optional Logging   | Firestore                | Stores menu selection / question / response |
+
