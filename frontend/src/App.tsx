@@ -15,7 +15,8 @@ function App() {
   const [showIntroBubble2, setShowIntroBubble2] = useState(false);
   const [showIntroBubble3, setShowIntroBubble3] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // Changed back to 768 for structural shifts
+  const [videosLoaded, setVideosLoaded] = useState<Set<string>>(new Set());
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -56,11 +57,27 @@ function App() {
     }
   }, [view]);
 
-  // Initial App Loader
+  // Video loading tracker
+  const handleVideoLoad = (videoSrc: string) => {
+    setVideosLoaded(prev => {
+      const next = new Set(prev);
+      next.add(videoSrc);
+      return next;
+    });
+  };
+
+  // Initial App Loader - Depends on critical video load
   useEffect(() => {
-    const timer = setTimeout(() => setIsAppReady(true), 2500); // 2.5s simulated brew time
-    return () => clearTimeout(timer);
-  }, []);
+    // If shop video is loaded or if it's taking too long (fallback)
+    const timeout = setTimeout(() => setIsAppReady(true), 5000);
+
+    if (videosLoaded.has('/barista.mp4')) {
+      setIsAppReady(true);
+      clearTimeout(timeout);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [videosLoaded]);
 
   const CUP_CLOSERS = [
     "That pretty much sums me up ☕✨",
@@ -167,7 +184,8 @@ function App() {
     return (
       <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-[#fdfaf7]">
         {/* LEFT SIDEBAR: FULL HEIGHT MENU (Stacks at Top on Mobile) */}
-        <aside className="w-full md:w-[400px] h-auto md:h-full bg-[#4a322d] p-6 md:px-6 md:py-8 flex flex-col shadow-2xl z-20 overflow-y-auto md:overflow-hidden scrollbar-hide max-h-[40vh] md:max-h-none border-b-2 md:border-b-0 md:border-r-2 border-white/5">
+        {/* LEFT SIDEBAR: FULL HEIGHT MENU (Stacks at Top on Mobile) */}
+        <aside className="w-full md:w-[30%] lg:w-[25%] md:min-w-[380px] lg:max-w-[500px] h-auto md:h-full bg-[#4a322d] p-4 md:px-8 md:py-10 flex flex-col shadow-2xl z-20 overflow-y-auto md:overflow-hidden scrollbar-hide max-h-[45vh] md:max-h-none border-b-2 md:border-b-0 md:border-r-2 border-white/5">
           {/* ORGANIZED HEADING */}
           <div className="mb-4 md:mb-5 pb-2 md:pb-3 border-b border-white/10 text-center">
             <h2 className="text-[#fffcf0] text-xl md:text-2xl leading-tight font-bold tracking-tight whitespace-nowrap">
@@ -175,8 +193,8 @@ function App() {
             </h2>
           </div>
 
-          {/* ORGANIZED MENU ITEMS - Evenly Spaced */}
-          <div className="flex-1 flex flex-col justify-around md:py-4">
+          {/* ORGANIZED MENU ITEMS - Gap instead of justify-around for better scaling */}
+          <div className="flex-1 flex flex-col gap-3 md:gap-5 md:py-6">
             {menuItems.map((item) => (
               <button
                 key={item.id}
@@ -215,13 +233,21 @@ function App() {
           >
             <source src="/barista.mp4" type="video/mp4" />
           </video>
+          {/* Transparent trigger to track load */}
+          <video
+            className="hidden"
+            onCanPlayThrough={() => handleVideoLoad('/barista.mp4')}
+            muted
+          >
+            <source src="/barista.mp4" type="video/mp4" />
+          </video>
 
           {/* THE CLASSY MODERN HEADER (Now a Button) */}
           <button
             onClick={() => setView('about')}
-            className="absolute top-6 md:top-12 right-6 md:right-12 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 z-20 w-max max-w-[90vw] hover:scale-105 active:scale-95 transition-all group"
+            className="absolute top-4 md:top-12 right-4 md:right-12 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 z-20 w-max max-w-[90vw] hover:scale-105 active:scale-95 transition-all group"
           >
-            <div className="backdrop-blur-xl bg-black/40 px-8 md:px-16 py-6 md:py-10 rounded-[3rem] border border-white/20 shadow-2xl group-hover:border-white/40 flex flex-col items-center justify-center min-h-[80px] md:min-h-[120px] relative">
+            <div className="backdrop-blur-xl bg-black/40 px-5 md:px-16 py-4 md:py-10 rounded-[2rem] md:rounded-[3rem] border border-white/20 shadow-2xl group-hover:border-white/40 flex flex-col items-center justify-center min-h-[60px] md:min-h-[120px] relative">
               <h1 className="text-white text-2xl md:text-5xl font-bold tracking-tight whitespace-nowrap text-center" style={{
                 textShadow: '0 4px 12px rgba(0,0,0,0.3)'
               }}>
@@ -345,7 +371,7 @@ function App() {
         {/* BACK BUTTON */}
         <button
           onClick={handleBackToShop}
-          className="fixed top-6 right-6 z-50 bg-[#4a322d] text-[#fffcf0] px-8 py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-xl border-2 border-white/20"
+          className="fixed top-4 right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-6 py-2 md:px-8 md:py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg md:text-xl border-2 border-white/20"
         >
           ← Order something else
         </button>
@@ -403,7 +429,7 @@ function App() {
         {/* BACK BUTTON */}
         <button
           onClick={handleBackToShop}
-          className="fixed top-6 right-6 z-50 bg-[#4a322d] text-[#fffcf0] px-8 py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-xl border-2 border-white/20"
+          className="fixed top-4 right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-6 py-2 md:px-8 md:py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg md:text-xl border-2 border-white/20"
         >
           ← Order something else
         </button>
@@ -413,7 +439,7 @@ function App() {
 
   // COFFEE/RECEIPT VIEW
   return (
-    <div className="h-screen w-full relative flex flex-col md:items-center md:justify-center overflow-y-auto overflow-x-hidden md:overflow-hidden scrollbar-hide bg-[#2b1d1a]">
+    <div className="h-screen w-full relative flex flex-col md:flex-row items-center justify-center overflow-y-auto md:overflow-hidden bg-[#2b1d1a]">
       {/* VIDEO BACKGROUND */}
       <video
         ref={videoRef}
@@ -429,33 +455,35 @@ function App() {
         <source src="/coffee-cup.mp4" type="video/mp4" />
       </video>
 
-      {/* THE RECEIPT */}
-      <div className="relative md:absolute md:left-16 md:top-[10%] z-30 w-[90%] max-w-[480px] mt-24 md:mt-0 mx-auto md:mx-0 p-8 md:p-12 receipt text-[#3e2723] scale-100 md:scale-115 shadow-2xl">
-        <div className="border-b border-dashed border-[#3e2723]/30 pb-4 md:pb-6 mb-4 md:mb-6 text-center">
-          <p className="font-bold tracking-widest text-base md:text-lg uppercase text-[#3e2723]">Coffee Receipt</p>
-          <p className="text-xs md:text-sm opacity-60 mt-1">{new Date().toLocaleTimeString()} - Order #88</p>
-        </div>
-        <p
-          className="text-xl md:text-2xl leading-relaxed italic font-medium overflow-hidden text-[#3e2723]"
-          style={{
-            maxHeight: "550px",
-            display: "-webkit-box",
-            WebkitLineClamp: 16,
-            WebkitBoxOrient: "vertical"
-          }}
-        >
-          {renderContentWithLinks(summarizeForReceipt(currentResponse))}
-        </p>
-        <div className="mt-8 md:mt-12 pt-6 border-t border-dashed border-[#3e2723]/30 text-center">
-          <p className="text-sm md:text-base opacity-50 uppercase tracking-tighter">Thank You for Visiting! ☕</p>
+      {/* THE RECEIPT CONTAINER */}
+      <div className="relative z-30 w-full h-full flex items-center justify-center md:justify-start px-4 md:px-20 py-20 pointer-events-none">
+        <div className="receipt text-[#3e2723] w-full max-w-[480px] p-8 md:p-12 shadow-2xl pointer-events-auto mt-10 md:mt-0">
+          <div className="border-b border-dashed border-[#3e2723]/30 pb-4 md:pb-6 mb-4 md:mb-6 text-center">
+            <p className="font-bold tracking-widest text-base md:text-lg uppercase text-[#3e2723]">Coffee Receipt</p>
+            <p className="text-xs md:text-sm opacity-60 mt-1">{new Date().toLocaleTimeString()} - Order #88</p>
+          </div>
+          <p
+            className="text-xl md:text-2xl leading-relaxed italic font-medium overflow-hidden text-[#3e2723]"
+            style={{
+              maxHeight: "550px",
+              display: "-webkit-box",
+              WebkitLineClamp: 14,
+              WebkitBoxOrient: "vertical"
+            }}
+          >
+            {renderContentWithLinks(summarizeForReceipt(currentResponse))}
+          </p>
+          <div className="mt-8 md:mt-12 pt-6 border-t border-dashed border-[#3e2723]/30 text-center">
+            <p className="text-sm md:text-base opacity-50 uppercase tracking-tighter">Thank You for Visiting! ☕</p>
+          </div>
         </div>
       </div>
 
       {/* BACK BUTTON */}
       <button
         onClick={handleBackToShop}
-        className="fixed md:absolute top-6 md:top-10 left-6 md:left-auto md:right-10 z-50 bg-[#4a322d] text-[#fffcf0] 
-                   px-8 md:px-14 py-4 md:py-6 rounded-full text-xl md:text-2xl font-bold shadow-2xl hover:scale-105 transition-all active:scale-95 border-2 border-white/20"
+        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] 
+                   px-6 py-2 md:px-8 md:py-3 rounded-full text-lg md:text-xl font-bold shadow-2xl hover:scale-105 transition-all active:scale-95 border-2 border-white/20"
       >
         <span>← Order something else</span>
       </button>

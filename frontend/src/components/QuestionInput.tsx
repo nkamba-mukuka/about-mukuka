@@ -25,7 +25,7 @@ export default function QuestionInput({ onSubmit, isLoading }: QuestionInputProp
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Ask anything... ☕✨"
           disabled={isLoading}
-          className="flex-1 h-14 md:h-20 px-6 md:px-10 rounded-full border-2 border-[#2b1d1a] bg-[#fffcf0]/95 backdrop-blur-sm text-[#2b1d1a] placeholder-amber-700/60 focus:outline-none focus:ring-2 focus:ring-[#2b1d1a] shadow-2xl text-base md:text-xl font-medium"
+          className="flex-1 h-12 md:h-20 px-5 md:px-10 rounded-full border-2 border-[#2b1d1a] bg-[#fffcf0]/95 backdrop-blur-sm text-[#2b1d1a] placeholder-amber-700/60 focus:outline-none focus:ring-2 focus:ring-[#2b1d1a] shadow-2xl text-sm md:text-xl font-medium"
         />
         <button
           type="submit"
