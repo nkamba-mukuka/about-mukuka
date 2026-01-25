@@ -10,11 +10,12 @@ const PORTFOLIO_INFO = {
     email: "mukukankambaa@gmail.com",
     linkedin: "linkedin.com/in/mukuka-nkamba-4a9b16290",
     github: "github.com/nkamba-mukuka",
+    tiktok: "tiktok.com/@coffee-to-code",
   },
   bio: "I'm a results-oriented Full Stack Engineer and Data Analyst with 1+ years experience in Golang, PHP, and Next.js. I thrive in backend development and problem-solving. Beyond code, I'm a Women in Tech Advocate and Content Creator dedicated to empowering others in STEM. I love translating business needs into high-quality technical solutions! ☕✨",
   skills: {
-    backend: ["Golang", "PHP", "Python", "gRPC", "PostgreSQL"],
-    frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"],
+    backend: ["Golang", "PHP", "PostgreSQL", "node.js"],
+    frontend: ["React", "Next.js", "TypeScript", "HTML", "CSS", "JavaScript"],
     frameworks: ["Yii2", "Laravel"],
     dataAnalysis: ["Data Cleaning & Wrangling", "Data Visualization", "Statistical Analysis", "Critical Thinking", "Business Acumen"],
     databases: ["SQL", "Gorm"],
@@ -83,10 +84,23 @@ const PORTFOLIO_INFO = {
   ],
   projects: [
     {
-      name: "Latte AI Portfolio",
-      description: "3D interactive portfolio website with coffee shop theme",
-      tech: ["React", "Three.js", "Firebase", "Cloud Functions"],
+      name: "Hytel Elixir",
+      description: "An agile methodology system that empowers teams to deliver exceptional results with intelligent project management, seamless collaboration, and data-driven insights.",
+      link: "https://elixir-98f15.web.app/",
+      tech: ["Project Management", "AI", "Collaboration"],
     },
+    {
+      name: "Klapton Insurance Zambia (KIZ)",
+      description: "Digital insurance for your home. KIZ serves clients with superior insurance products and services that promote economic growth through expertise.",
+      link: "https://kiz.co.zm/",
+      tech: ["FinTech", "Zambia", "Digital Insurance"],
+    },
+    {
+      name: "First Portfolio",
+      description: "My initial showcase of work and design evolution.",
+      link: "https://portfoliox-git-main-mukukankambaa-gmailcoms-projects.vercel.app/",
+      tech: ["Web Design", "Portfolio"],
+    }
   ],
   interests: [
     "AI & Machine Learning",
@@ -141,29 +155,36 @@ async function generateAIResponse(type, value) {
 
     // Handle questions - match keywords to portfolio sections
     const triggers = {
-      skills: ["skill", "what can you", "technolog"],
-      projects: ["project", "build", "portfolio"],
-      about: ["about", "who", "bio"],
-      interests: ["interest", "hobby", "hobbies", "like"],
-      hello: ["hello", "hi", "hey"],
-      contact: ["contact", "email", "reach"],
-      experience: ["experience", "work", "job", "career"],
-      education: ["education", "degree", "university", "school"],
-      certification: ["certification", "certificate", "cert"],
+      skills: ["skill", "what can you", "technolog", "tech stack", "language", "stack", "coding"],
+      projects: ["project", "build", "portfolio", "made", "creation", "app", "website"],
+      about: ["about", "who", "bio", "yourself", "story", "identity"],
+      interests: ["interest", "hobby", "hobbies", "like", "fun", "passion", "outside", "free time"],
+      hello: ["hello", "hi", "hey", "sup", "greetings"],
+      contact: ["contact", "email", "reach", "hire", "phone", "talk", "social", "tiktok", "linkedin", "github"],
+      experience: ["experience", "work", "job", "career", "professional", "company", "worked", "do you do"],
+      education: ["education", "degree", "university", "school", "graduate", "study", "college"],
+      certification: ["certification", "certificate", "cert", "qualified"],
     };
 
-    // Priority: Granular Answers (Email, Phone, Specific Hobby/Skill/School)
+    // Priority: Granular Answers
     if (lowerValue.includes("email")) return getEmailResponse();
     if (lowerValue.includes("phone") || lowerValue.includes("number")) return getPhoneResponse();
-    if (lowerValue.includes("first school")) return getFirstSchoolResponse();
-    if (lowerValue.includes("hobby") || lowerValue.includes("interest")) {
-      if (lowerValue.includes("one") || lowerValue.includes("single")) {
-        return getOneHobbyResponse();
-      }
-      return generateInterestsResponse();
-    }
+    if (lowerValue.includes("tiktok")) return getTikTokResponse();
     if (lowerValue.includes("github")) return generateContactResponse("github");
     if (lowerValue.includes("linkedin")) return generateContactResponse("linkedin");
+
+    // Specific personality/preference questions
+    if (lowerValue.includes("favorite language") || lowerValue.includes("favourite language")) {
+      return "Ouuu, I definitely have a soft spot for Golang and React! They're just so clean and powerful. ✨☕";
+    }
+
+    if (lowerValue.includes("fun") || lowerValue.includes("outside of work") || lowerValue.includes("hobbies")) {
+      return generateInterestsResponse();
+    }
+
+    if (lowerValue.includes("who are you") || lowerValue.includes("what do you do")) {
+      return generateAboutResponse();
+    }
 
     if (lowerValue.includes("skill") || lowerValue.includes("what can you") || lowerValue.includes("technolog")) return generateSkillsResponse(true);
 
@@ -210,27 +231,35 @@ function generateSkillsResponse(single = false) {
   }
   return `Ouuu, this is too good! Here's the tea on my skills ☕✨
   
-I'm a backend-first engineer who thrives on building scalable systems with Golang, PHP, and PostgreSQL. I also love crafting clean frontends with React and Next.js, and lately, I've been diving deep into Generative AI and RAG. 
+I'm a full-stack engineer who thrives on building scalable systems with React, Golang, PHP, PostgreSQL, node.js, and Next.js. 
 
-Translating complex business needs into reliable technical architecture—that’s exactly where I shine! ✨💕`;
+Translating business needs into reliable technical architecture—that’s exactly where I shine! ✨💕`;
 }
 
 /**
  * Generate response about projects
  */
 function generateProjectsResponse() {
-  return "Ouuu, let's talk about builds! ✨\n\nI build high-impact, scalable web applications focusing on clean architecture and performance. From this 3D AI portfolio to robust backend APIs, I love creating technology that actually empowers people.\n\nEvery project I take on is a new chance to innovate and push the boundaries of what's possible in tech. ☕💕";
+  return `Ouuu, let's talk about builds! ✨
+
+I've been working on some high-impact projects:
+
+1. Hytel Elixir (https://elixir-98f15.web.app/) - Agile management with data-driven insights.
+2. Klapton Insurance Zambia (https://kiz.co.zm/) - Superior digital insurance.
+3. My First Portfolio (https://portfoliox-git-main-mukukankambaa-gmailcoms-projects.vercel.app/) - Where it all began!
+
+Every project is a new chance to innovate. ☕💕`;
 }
 
 /**
  * Generate response about the person
  */
 function generateAboutResponse() {
-  return `Hey gorgeous! ☕✨ I'm Mukuka Nkamba, a Full Stack Software Engineer and Data Analyst with a strong backend focus. 
+  return `Hey gorgeous! ☕✨ I'm Mukuka Nkamba, a Full Stack Software Engineer, AI enthusiast, and Data Analyst with a strong backend focus. 
 
-I build scalable web applications using Golang, PHP, PostgreSQL, React, and Next.js, and I enjoy turning business needs into clean, reliable technical solutions. 
+I build scalable web applications using Golang, PHP, PostgreSQL, React, and Next.js. I enjoy turning business needs into clean, reliable technical solutions. 
 
-Known for problem-solving, adaptability, and delivering high-quality work—that’s me in a nutshell. 💕✨`;
+Known for problem-solving and delivering high-quality work. 💕✨`;
 }
 
 /**
@@ -273,6 +302,7 @@ function generateContactResponse(filter = null) {
 📱 PHONE: ${contact.phone}
 💼 LINKEDIN: ${contact.linkedin}
 💻 GITHUB: ${contact.github}
+📱 TIKTOK: ${contact.tiktok}
 
 Feel free to reach out about collaboration, mentorship, or literally just to say hello. I'm always down to chat! 💕☕`;
 }
@@ -283,7 +313,7 @@ Feel free to reach out about collaboration, mentorship, or literally just to say
 function generateExperienceResponse() {
   return `Ouuu, my professional journey is giving main character. ✨
 
-With experience across startups and established firms like Hytel and Fin360, I’ve spent my career building scalable solutions and collaborating in Agile teams. 
+With experience across startups and established firms like Kuala Tech, Hytel and Fin360, I’ve spent my career building scalable solutions and collaborating in Agile teams. 
 
 I focus on delivering high-quality results while constantly learning and growing in the tech world. It's truly too good! ☕💕`;
 }
@@ -328,13 +358,8 @@ function getPhoneResponse() {
   return `📱 ${PORTFOLIO_INFO.contact.phone}`;
 }
 
-function getOneHobbyResponse() {
-  return `One thing I genuinely enjoy? ${PORTFOLIO_INFO.interests[0]} ☕✨`;
-}
-
-function getFirstSchoolResponse() {
-  const firstSchool = PORTFOLIO_INFO.education[1];
-  return `My first school was ${firstSchool.institution}. 🎓`;
+function getTikTokResponse() {
+  return `📱 My TikTok? Catch me at: ${PORTFOLIO_INFO.contact.tiktok} ☕🎬`;
 }
 
 module.exports = { generateAIResponse };

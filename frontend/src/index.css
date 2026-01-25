@@ -102,13 +102,50 @@ code {
   background-color: #4a322d;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Chat Bubble Styling */
+.bubble-user {
+  background: #2b1d1a;
+  color: #fffcf0;
+  border-radius: 28px 28px 4px 28px;
+  padding: 20px 32px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  max-width: 85%;
+  align-self: flex-end;
+  animation: bubble-pop 0.3s ease-out;
+  font-size: 1.25rem; /* Larger text */
+  line-height: 1.6;
+}
+
+.bubble-barista {
+  background: #fffcf0;
+  color: #000000; /* Absolute dark for maximum contrast */
+  border-radius: 28px 28px 28px 4px;
+  padding: 20px 32px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  max-width: 85%;
+  align-self: flex-start;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: bubble-slide-smooth 0.8s cubic-bezier(0.22, 1, 0.36, 1); /* Slower, more elegant slide */
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+@keyframes bubble-slide-smooth {
+  from { 
+    transform: translateX(-30px) scale(0.98); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateX(0) scale(1); 
+    opacity: 1; 
+  }
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
