@@ -11,14 +11,26 @@ function App() {
   const [view, setView] = useState<View>('shop');
   const [showComingUp, setShowComingUp] = useState(false);
   const [cupMessage, setCupMessage] = useState<string>("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     if (videoRef.current) {
+      // Force play state for mobile compatibility
       videoRef.current.muted = true;
-      videoRef.current.play().catch(error => {
-        console.log("Autoplay failed, user interaction might be required:", error);
-      });
+      videoRef.current.playsInline = true;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay was prevented
+        });
+      }
     }
   }, [view]);
 
@@ -140,15 +152,18 @@ function App() {
         <main className="relative flex-1 h-full shadow-inner overflow-hidden">
           <video
             ref={videoRef}
+            key="barista-video"
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ objectPosition: window.innerWidth < 768 ? '30% center' : 'center right' }}
-            src="/barista.mp4"
+            style={{ objectPosition: isMobile ? '30% center' : 'center right' }}
             autoPlay
             loop
             muted
             playsInline
+            preload="auto"
             controls={false}
-          />
+          >
+            <source src="/barista.mp4" type="video/mp4" />
+          </video>
 
           {/* THE CLASSY MODERN HEADER (Positioned Relatively on Mobile) */}
           <div className="absolute top-6 md:top-12 right-6 md:right-12 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 z-20 w-max max-w-[90vw]">
