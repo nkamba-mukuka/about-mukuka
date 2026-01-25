@@ -1,9 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, PerspectiveCamera, Text } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, RoundedBox } from "@react-three/drei";
 import { Suspense } from "react";
-import Barista from "./Barista";
 import CoffeeCup from "./CoffeeCup";
-import MenuBoard from "./MenuBoard";
 
 interface SceneProps {
   currentResponse: string | null;
@@ -14,181 +12,92 @@ interface SceneProps {
 export default function Scene({ currentResponse, onMenuSelect, isLoading }: SceneProps) {
   return (
     <Canvas
-      style={{ width: "100%", height: "100vh" }}
+      style={{ width: '100vw', height: '100vh', pointerEvents: 'auto' }}
       gl={{ antialias: true, alpha: true }}
-      shadows
+      shadows={false}
     >
-      <PerspectiveCamera makeDefault position={[0, 2, 5]} fov={50} />
-      
-      {/* Lighting - soft, girly pastel lighting */}
-      <ambientLight intensity={0.6} />
-      <directionalLight 
-        position={[5, 5, 5]} 
-        intensity={0.8} 
-        color="#FFD1DC" 
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-      />
-      <directionalLight position={[-5, 3, -5]} intensity={0.4} color="#E6E6FA" />
-      <pointLight position={[0, 4, 0]} intensity={0.5} color="#FFF8DC" />
+      <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={45} />
 
-      {/* Environment */}
+      {/* Lighting - Proper Illumination */}
+      <ambientLight intensity={0.8} />
+      <spotLight position={[5, 10, 10]} intensity={1.0} castShadow />
+      <pointLight position={[-5, 5, 5]} intensity={0.5} />
+
+      {/* Content */}
       <Suspense fallback={null}>
-        <Environment preset="sunset" />
-      </Suspense>
 
-      {/* Coffee Shop Floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#FFF8DC" />
-      </mesh>
+        {/* Floating 3D Group (Bottom Center) - Scaled Down */}
+        <group position={[0, -2.2, 0.5]} scale={0.6}>
+          {/* 3D Cash Register (Till) - Stylish Design with Contact Shadow */}
+          <group position={[0, 0, 0]}>
+            {/* Contact Shadow */}
+            <mesh position={[0, -0.46, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+              <circleGeometry args={[0.9, 32]} />
+              <meshBasicMaterial color="#000000" opacity={0.2} transparent />
+            </mesh>
 
-      {/* Coffee Shop Walls */}
-      <mesh position={[0, 2.5, -5]} receiveShadow>
-        <boxGeometry args={[20, 5, 0.2]} />
-        <meshStandardMaterial color="#FFD1DC" />
-      </mesh>
+            {/* Main Body - Curved */}
+            <RoundedBox args={[1.4, 0.9, 1.1]} radius={0.15} smoothness={8}>
+              <meshStandardMaterial
+                color="#FFB6C1"
+                metalness={0.3}
+                roughness={0.4}
+              />
+            </RoundedBox>
 
-      {/* Portfolio Coffee Sign */}
-      <Text
-        position={[0, 3.5, -4.9]}
-        fontSize={0.4}
-        color="#DDA0DD"
-        anchorX="center"
-        anchorY="middle"
-      >
-        ☕ Portfolio Coffee ✨
-      </Text>
+            {/* Screen - Modern Flat Display */}
+            <group position={[0, 0.65, 0.3]} rotation={[-0.15, 0, 0]}>
+              <RoundedBox args={[1.1, 0.7, 0.05]} radius={0.05} smoothness={4}>
+                <meshStandardMaterial
+                  color="#1a1a1a"
+                  metalness={0.8}
+                  roughness={0.2}
+                />
+              </RoundedBox>
+              {/* Screen Glow */}
+              <mesh position={[0, 0, 0.03]}>
+                <planeGeometry args={[1, 0.6]} />
+                <meshBasicMaterial color="#4a9eff" opacity={0.3} transparent />
+              </mesh>
+            </group>
 
-      {/* Counter Base */}
-      <mesh position={[1, 0.5, -1]} receiveShadow>
-        <boxGeometry args={[4, 1, 1]} />
-        <meshStandardMaterial color="#E6E6FA" />
-      </mesh>
+            {/* Keypad Area */}
+            <group position={[0, 0.5, 0.6]} rotation={[-0.4, 0, 0]}>
+              <RoundedBox args={[1.1, 0.5, 0.08]} radius={0.03} smoothness={4}>
+                <meshStandardMaterial color="#FFC0CB" />
+              </RoundedBox>
+            </group>
 
-      {/* Counter Top */}
-      <mesh position={[1, 1.1, -1]} receiveShadow>
-        <boxGeometry args={[4.2, 0.1, 1.2]} />
-        <meshStandardMaterial color="#FFF8DC" />
-      </mesh>
+            {/* Decorative Accent Strip */}
+            <mesh position={[0, 0.2, 0.56]}>
+              <boxGeometry args={[1.45, 0.08, 0.02]} />
+              <meshStandardMaterial color="#FFD700" metalness={0.9} roughness={0.1} />
+            </mesh>
+          </group>
 
-      {/* Cash Register / Till */}
-      <group position={[2.5, 1.2, -0.8]}>
-        <mesh>
-          <boxGeometry args={[0.4, 0.3, 0.3]} />
-          <meshStandardMaterial color="#FFB6C1" />
-        </mesh>
-        {/* Register Screen */}
-        <mesh position={[0, 0.05, 0.16]}>
-          <boxGeometry args={[0.3, 0.15, 0.02]} />
-          <meshStandardMaterial color="#000000" />
-        </mesh>
-        {/* Register Buttons */}
-        {[...Array(6)].map((_, i) => (
-          <mesh key={i} position={[-0.15 + (i % 3) * 0.1, -0.1, 0.16]}>
-            <boxGeometry args={[0.05, 0.05, 0.02]} />
-            <meshStandardMaterial color="#DDA0DD" />
-          </mesh>
-        ))}
-      </group>
-
-      {/* Coffee Machine */}
-      <group position={[0.5, 1.2, -0.8]}>
-        {/* Machine Body */}
-        <mesh>
-          <boxGeometry args={[0.5, 0.4, 0.4]} />
-          <meshStandardMaterial color="#FFD1DC" />
-        </mesh>
-        {/* Machine Top */}
-        <mesh position={[0, 0.25, 0]}>
-          <boxGeometry args={[0.5, 0.1, 0.4]} />
-          <meshStandardMaterial color="#FFB6C1" />
-        </mesh>
-        {/* Steam Wand */}
-        <mesh position={[0.2, 0.3, 0.15]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.2, 8]} />
-          <meshStandardMaterial color="#C0C0C0" metalness={0.8} roughness={0.2} />
-        </mesh>
-        {/* Coffee Drip */}
-        <mesh position={[0, 0.15, 0]}>
-          <cylinderGeometry args={[0.08, 0.08, 0.1, 16]} />
-          <meshStandardMaterial color="#8B4513" />
-        </mesh>
-      </group>
-
-      {/* Counter Display Shelf */}
-      <mesh position={[1, 1.5, -0.5]} receiveShadow>
-        <boxGeometry args={[3, 0.05, 0.6]} />
-        <meshStandardMaterial color="#FFF8DC" />
-      </mesh>
-
-      {/* Pastries on Display Shelf */}
-      {[...Array(3)].map((_, i) => (
-        <group key={i} position={[0.3 + i * 0.8, 1.55, -0.3]}>
-          {/* Pastry Base */}
-          <mesh>
-            <cylinderGeometry args={[0.12, 0.12, 0.08, 16]} />
-            <meshStandardMaterial color="#FFE5B4" />
-          </mesh>
-          {/* Pastry Top */}
-          <mesh position={[0, 0.05, 0]}>
-            <sphereGeometry args={[0.1, 16, 16]} />
-            <meshStandardMaterial color="#FFB6C1" />
-          </mesh>
+          {/* Coffee Cup Response (Slides in front of Till) */}
+          <group position={[0, 0, 1.5]}>
+            {currentResponse && (
+              <CoffeeCup text={currentResponse} position={[0, 0, 0]} visible={true} />
+            )}
+            {isLoading && (
+              <CoffeeCup text="Brewing... ☕" position={[0, 0, 0]} visible={true} />
+            )}
+          </group>
         </group>
-      ))}
 
-      {/* Coffee Beans Decoration */}
-      {[...Array(8)].map((_, i) => (
-        <mesh
-          key={i}
-          position={[-1.5 + (i % 4) * 1, 1.52, -0.2 + Math.floor(i / 4) * 0.3]}
-          rotation={[Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]}
-        >
-          <boxGeometry args={[0.04, 0.04, 0.06]} />
-          <meshStandardMaterial color="#8B4513" />
-        </mesh>
-      ))}
-
-      {/* Decorative elements - flowers */}
-      {[...Array(5)].map((_, i) => (
-        <mesh
-          key={i}
-          position={[-4 + i * 2, 0.3, -4.5]}
-          rotation={[0, Math.random() * Math.PI, 0]}
-        >
-          <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial color="#FFB6C1" />
-        </mesh>
-      ))}
-
-      {/* 3D Components */}
-      <Suspense fallback={null}>
-        <Barista />
-        <MenuBoard onSelect={onMenuSelect} />
-        
-        {/* Coffee Cup with response */}
-        {currentResponse && (
-          <CoffeeCup text={currentResponse} position={[0, 1, 0]} visible={true} />
-        )}
-
-        {/* Loading indicator */}
-        {isLoading && (
-          <CoffeeCup text="Brewing your answer... ☕✨" position={[0, 1, 0]} visible={true} />
-        )}
       </Suspense>
 
-      {/* Camera Controls */}
+      {/* Controls */}
       <OrbitControls
-        enableZoom={true}
-        enablePan={true}
-        minDistance={3}
-        maxDistance={10}
-        minPolarAngle={0}
-        maxPolarAngle={Math.PI / 2}
+        enableZoom={false}
+        enablePan={false}
+        enableRotate={true}
+        minPolarAngle={Math.PI / 2.2}
+        maxPolarAngle={Math.PI / 1.8}
+        minAzimuthAngle={-Math.PI / 10}
+        maxAzimuthAngle={Math.PI / 10}
       />
     </Canvas>
   );
 }
-

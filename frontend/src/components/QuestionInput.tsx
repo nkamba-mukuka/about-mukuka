@@ -17,7 +17,7 @@ export default function QuestionInput({ onSubmit, isLoading }: QuestionInputProp
   };
 
   return (
-    <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-2xl px-4">
+    <div className="fixed bottom-32 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-2xl px-4">
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="text"

@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
+import * as THREE from "three";
 
 interface MenuBoardProps {
   onSelect: (item: string) => void;
 }
 
 const menuItems = [
-  { id: "about", label: "About Me", emoji: "👋" },
-  { id: "skills", label: "Skills", emoji: "💻" },
-  { id: "projects", label: "Projects", emoji: "🚀" },
-  { id: "experience", label: "Experience", emoji: "💼" },
-  { id: "education", label: "Education", emoji: "🎓" },
-  { id: "interests", label: "Interests", emoji: "✨" },
-  { id: "contact", label: "Contact", emoji: "📧" },
+  { id: "about", label: "About Me Americano", emoji: "☕" },
+  { id: "skills", label: "Skills Sprinkles", emoji: "✨" },
+  { id: "projects", label: "Projects Pastry", emoji: "🥐" },
+  { id: "experience", label: "Exp. Espresso", emoji: "💼" },
+  { id: "education", label: "Edu. Eclair", emoji: "🎓" },
+  { id: "contact", label: "Contact Matcha", emoji: "🍵" },
 ];
 
 export default function MenuBoard({ onSelect }: MenuBoardProps) {
@@ -30,7 +31,7 @@ export default function MenuBoard({ onSelect }: MenuBoardProps) {
       <Text
         position={[0, 1.2, 0.1]}
         fontSize={0.2}
-        color="#DDA0DD"
+        color="#DDA0DD" // Lavender Dark
         anchorX="center"
         anchorY="middle"
       >
@@ -39,32 +40,60 @@ export default function MenuBoard({ onSelect }: MenuBoardProps) {
 
       {/* Menu Items */}
       {menuItems.map((item, index) => (
-        <group
+        <MenuItem
           key={item.id}
-          position={[0, 0.8 - index * 0.35, 0.1]}
-          onPointerOver={() => setHovered(item.id)}
-          onPointerOut={() => setHovered(null)}
-          onClick={() => onSelect(item.id)}
-        >
-          <mesh>
-            <boxGeometry args={[1.5, 0.25, 0.05]} />
-            <meshStandardMaterial
-              color={hovered === item.id ? "#FFB6C1" : "#FFD1DC"}
-              emissive={hovered === item.id ? "#FFB6C1" : "#000000"}
-              emissiveIntensity={hovered === item.id ? 0.3 : 0}
-            />
-          </mesh>
-          <Text
-            position={[0, 0, 0.05]}
-            fontSize={0.1}
-            color={hovered === item.id ? "#4B0082" : "#8B008B"}
-            anchorX="center"
-            anchorY="middle"
-          >
-            {item.emoji} {item.label}
-          </Text>
-        </group>
+          item={item}
+          index={index}
+          onSelect={onSelect}
+        />
       ))}
+    </group>
+  );
+}
+
+function MenuItem({ item, index, onSelect }: { item: any, index: number, onSelect: (id: string) => void }) {
+  const meshRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
+
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      // Smooth lerp for scale (spring-like feel)
+      const targetScale = hovered ? 1.1 : 1;
+      meshRef.current.scale.x = THREE.MathUtils.lerp(meshRef.current.scale.x, targetScale, delta * 10);
+      meshRef.current.scale.y = THREE.MathUtils.lerp(meshRef.current.scale.y, targetScale, delta * 10);
+      meshRef.current.scale.z = THREE.MathUtils.lerp(meshRef.current.scale.z, targetScale, delta * 10);
+
+      // Smooth lerp for position (pop out effect)
+      const targetZ = hovered ? 0.15 : 0.1;
+      meshRef.current.position.z = THREE.MathUtils.lerp(meshRef.current.position.z, targetZ, delta * 10);
+    }
+  });
+
+  return (
+    <group
+      ref={meshRef}
+      position={[0, 0.8 - index * 0.35, 0.1]}
+      onPointerOver={() => { document.body.style.cursor = 'pointer'; setHovered(true); }}
+      onPointerOut={() => { document.body.style.cursor = 'auto'; setHovered(false); }}
+      onClick={() => onSelect(item.id)}
+    >
+      <mesh>
+        <boxGeometry args={[1.5, 0.25, 0.05]} />
+        <meshStandardMaterial
+          color={hovered ? "#FFB6C1" : "#FFD1DC"} // Pink Soft / Pink Pastel
+          emissive={hovered ? "#FFB6C1" : "#000000"}
+          emissiveIntensity={hovered ? 0.2 : 0}
+        />
+      </mesh>
+      <Text
+        position={[0, 0, 0.06]}
+        fontSize={0.1}
+        color={hovered ? "#8B008B" : "#DDA0DD"} // Dark Magenta / Lavender Dark
+        anchorX="center"
+        anchorY="middle"
+      >
+        {item.emoji} {item.label}
+      </Text>
     </group>
   );
 }
