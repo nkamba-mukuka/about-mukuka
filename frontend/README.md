@@ -1,147 +1,200 @@
-# Latte AI Portfolio - Frontend ☕✨
+# Latte AI Portfolio - Frontend
 
-A beautiful, girly 3D coffee shop portfolio built with React Three Fiber.
+A beautiful, video-based portfolio experience built with React and TypeScript.
 
-## Features
+## 🎨 Features
 
-- 🎨 **3D Coffee Shop Environment** - Cozy, pastel-colored coffee shop scene
-- ☕ **Interactive Menu Board** - Click menu items to learn about Mukuka
-- 🤖 **AI Barista** - Ask questions and get responses served as coffee
-- 💕 **Girly Aesthetic** - Pastel pinks, lavender, and cream colors
-- ✨ **Smooth Animations** - Floating coffee cups, gentle barista movements
-- 📊 **Firestore Integration** - Logs interactions for analytics (production Firestore, no emulators)
+- **Video-Based UI** - Immersive coffee shop experience with video backgrounds
+- **AI-Powered Barista** - Intelligent responses with a girly, vibey personality
+- **Interactive Menu** - Coffee-themed menu items for different portfolio sections
+- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+- **Firestore Integration** - Logs interactions for analytics
 
-## Tech Stack
+## 🏗️ Architecture
 
-- **React** + **TypeScript**
-- **React Three Fiber** - 3D rendering
-- **Drei** - 3D helpers and utilities
-- **Tailwind CSS** - Styling with custom girly palette
-- **Axios** - API calls to backend
-- **Firebase** - Firestore for interaction logging (production)
+### Component Structure
 
-## Getting Started
+```
+src/
+├── App.tsx                 # Main orchestrator
+├── components/
+│   ├── ShopView.tsx       # Main shop interface
+│   ├── CoffeeView.tsx     # Receipt display
+│   ├── ChatView.tsx       # Chat interface
+│   ├── AboutView.tsx      # Introduction
+│   ├── LoadingView.tsx    # Loading screen
+│   └── QuestionInput.tsx   # Input form
+├── api/
+│   └── askAI.ts           # Backend API client
+├── config/
+│   └── firebase.ts        # Firebase config
+├── services/
+│   └── firestore.ts       # Firestore logging
+└── utils/
+    ├── textUtils.ts       # Text formatting
+    └── responsive.ts      # Responsive utilities
+```
 
-### 1. Install Dependencies
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Firebase project configured
+
+### Installation
 
 ```bash
 npm install
 ```
 
-### 2. Set Up Firebase Configuration
+### Environment Setup
 
-**Important:** You need to create a `.env` file with your Firebase config.
-
-1. Get your Firebase config from [Firebase Console](https://console.firebase.google.com/project/latte-ai-portfolio/settings/general)
-2. Create `.env` file in the `frontend/` directory:
-
-```bash
-cd frontend
-touch .env
-```
-
-3. Add your Firebase configuration (see `.env.example` for template):
+Create `.env` file:
 
 ```env
-REACT_APP_FIREBASE_API_KEY=your-api-key
+REACT_APP_FIREBASE_API_KEY=your_api_key
 REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
 REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.appspot.com
+REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.firebasestorage.app
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
-REACT_APP_FIREBASE_APP_ID=your-app-id
-REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
 
-See `FIRESTORE_SETUP.md` for detailed instructions.
-
-### 3. Run Development Server
+### Development
 
 ```bash
 npm start
 ```
 
-The app will open at `http://localhost:3000`
+Opens http://localhost:3000
 
-### 4. Build for Production
+### Build
 
 ```bash
 npm run build
 ```
 
-## Project Structure
+Creates optimized production build in `build/` directory.
 
+## 📱 Responsive Design
+
+### Breakpoints
+
+- **Mobile**: < 768px
+- **Tablet**: 768px - 1024px
+- **Desktop**: > 1024px
+
+### Features
+
+- Adaptive video positioning
+- Flexible menu layout (stacks on mobile)
+- Responsive text sizes
+- Touch-friendly interactions
+- Safe area insets for mobile devices
+
+## 🎯 Views
+
+1. **Shop View** - Main interface with menu and barista video
+2. **Coffee View** - Displays AI response as receipt
+3. **Chat View** - Interactive chat with barista
+4. **About View** - Introduction with staggered bubbles
+
+## 🔧 Configuration
+
+### Firebase
+
+See `FIRESTORE_SETUP.md` for detailed setup instructions.
+
+### API Endpoint
+
+Backend API endpoint is configured in `src/api/askAI.ts`:
+- Production: `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask`
+
+## 📚 Documentation
+
+- [Component Documentation](./COMPONENTS.md)
+- [Firestore Setup](./FIRESTORE_SETUP.md)
+- [Architecture](../ARCHITECTURE.md)
+
+## 🧪 Testing
+
+### Manual Testing
+
+1. Test menu item clicks
+2. Test question submission
+3. Test responsive breakpoints
+4. Test video loading
+5. Test Firestore logging
+
+### Browser Testing
+
+Test on:
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Videos not loading**
+- Check video files exist in `public/` directory
+- Verify file names match code
+- Check browser console for errors
+
+**Firebase errors**
+- Verify `.env` file exists
+- Check environment variables are correct
+- Restart dev server after updating `.env`
+
+**Responsive issues**
+- Clear browser cache
+- Check Tailwind classes are correct
+- Verify breakpoints in browser dev tools
+
+## 📦 Dependencies
+
+### Production
+- `react` - UI framework
+- `react-dom` - DOM rendering
+- `axios` - HTTP client
+- `firebase` - Firebase SDK
+
+### Development
+- `typescript` - Type checking
+- `tailwindcss` - Styling
+- `react-scripts` - Build tooling
+
+## 🚢 Deployment
+
+See [DEPLOYMENT.md](../DEPLOYMENT.md) for deployment instructions.
+
+Quick deploy:
+```bash
+npm run build
+firebase deploy --only hosting
 ```
-src/
-├── api/
-│   └── askAI.ts              # Backend API integration
-├── config/
-│   └── firebase.ts           # Firebase configuration (production)
-├── services/
-│   └── firestore.ts          # Firestore logging service
-├── components/
-│   ├── Scene.tsx            # Main 3D scene
-│   ├── Barista.tsx           # 3D barista character
-│   ├── CoffeeCup.tsx         # Coffee cup with text
-│   ├── MenuBoard.tsx         # Interactive menu
-│   └── QuestionInput.tsx     # Question input form
-├── App.tsx                   # Main app component
-└── index.css                 # Tailwind + custom styles
-```
 
-## Backend Integration
+## 📝 Code Style
 
-The frontend connects to the Firebase Cloud Function:
-- **Endpoint**: `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask`
-- **Method**: POST
-- **Body**: `{ type: "question" | "menu", value: string }`
+- TypeScript for type safety
+- Functional components with hooks
+- Tailwind CSS for styling
+- Component-based architecture
 
-## Firestore Integration
+## 🔮 Future Enhancements
 
-- **Production Firestore** - No emulators used
-- **Interaction Logging** - All menu clicks and questions are logged to Firestore
-- **Collection**: `interactions`
-- **Fields**: `type`, `question`, `response`, `timestamp`
+- [ ] Add unit tests
+- [ ] Add E2E tests
+- [ ] Implement 3D components (currently unused)
+- [ ] Add PWA support
+- [ ] Add offline support
+- [ ] Performance optimizations
 
-See `FIRESTORE_SETUP.md` for setup instructions.
+---
 
-## Customization
-
-### Colors
-
-Edit `tailwind.config.js` to customize the girly color palette:
-- `pink-pastel`, `pink-soft`
-- `lavender`, `lavender-dark`
-- `cream`, `peach`, `rose`, `mauve`
-
-### 3D Elements
-
-All 3D components are in `src/components/`:
-- Modify `Scene.tsx` to change the coffee shop layout
-- Update `Barista.tsx` to enhance the barista character
-- Customize `CoffeeCup.tsx` for different cup styles
-
-## Important Notes
-
-- ✅ **Production Firestore** - Uses real Firestore database, not emulators
-- ✅ **Environment Variables** - Required for Firebase config (see `.env.example`)
-- ✅ **No Emulator Setup** - All Firebase services use production
-
-## Troubleshooting
-
-### Firebase Errors
-- Make sure `.env` file exists with correct values
-- Restart dev server after creating/updating `.env`
-- Check browser console for specific error messages
-
-### Firestore Permission Errors
-- Deploy Firestore rules: `firebase deploy --only firestore:rules`
-- Check rules allow writes to `interactions` collection
-
-## Next Steps
-
-- [ ] Enhance barista 3D model with animations
-- [ ] Add more decorative elements (flowers, fairy lights)
-- [ ] Improve coffee cup text rendering
-- [ ] Add sound effects
-- [ ] Mobile responsiveness improvements
-- [ ] Add Firestore security rules for production
+**Live Site**: [latte-ai-portfolio.web.app](https://latte-ai-portfolio.web.app)
