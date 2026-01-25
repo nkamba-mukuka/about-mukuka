@@ -6,11 +6,11 @@ const { generateAIResponse } = require("../ai/prompt");
 // POST /api/ask
 router.post("/", async (req, res) => {
   try {
-    const { type, value } = req.body;
+    const { type, value, short } = req.body;
     if (!value) return res.status(400).json({ error: "No input provided" });
 
     // Generate AI response
-    const responseText = await generateAIResponse(type, value);
+    const responseText = await generateAIResponse(type, value, !!short);
 
     // Optional: log interaction
     // await logInteraction(type, value, responseText);

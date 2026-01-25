@@ -5,17 +5,22 @@ const API_URL = "https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI
 export interface AskAIRequest {
   type: "question" | "menu";
   value: string;
+  short?: boolean;
 }
 
 export interface AskAIResponse {
   responseText: string;
 }
 
-export async function askAI(type: "question" | "menu", value: string): Promise<string> {
+export async function askAI(type: "question" | "menu", value: string, short: boolean = false): Promise<string> {
   try {
+    // Pass raw value to allow hardcoded backend to match keywords correctly
+    const wrappedValue = value;
+
     const response = await axios.post<AskAIResponse>(API_URL, {
       type,
-      value,
+      value: wrappedValue,
+      short
     });
     return response.data.responseText;
   } catch (error) {
@@ -23,4 +28,3 @@ export async function askAI(type: "question" | "menu", value: string): Promise<s
     throw new Error("Failed to get response from barista ☕");
   }
 }
-
