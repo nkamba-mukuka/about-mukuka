@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import QuestionInput from "./components/QuestionInput";
 import { askAI } from "./api/askAI";
 import "./App.css";
@@ -11,6 +11,16 @@ function App() {
   const [view, setView] = useState<View>('shop');
   const [showComingUp, setShowComingUp] = useState(false);
   const [cupMessage, setCupMessage] = useState<string>("");
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay failed, user interaction might be required:", error);
+      });
+    }
+  }, [view]);
 
   const CUP_CLOSERS = [
     "That pretty much sums me up ☕✨",
@@ -129,19 +139,21 @@ function App() {
         {/* MAIN AREA: BARISTA VIDEO (Agent) */}
         <main className="relative flex-1 h-full shadow-inner overflow-hidden">
           <video
+            ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ objectPosition: 'center right' }}
+            style={{ objectPosition: window.innerWidth < 768 ? '30% center' : 'center right' }}
             src="/barista.mp4"
             autoPlay
             loop
             muted
             playsInline
+            controls={false}
           />
 
           {/* THE CLASSY MODERN HEADER (Positioned Relatively on Mobile) */}
-          <div className="absolute top-6 md:top-12 right-6 md:right-12 z-20 w-max max-w-[80vw]">
-            <div className="backdrop-blur-xl bg-black/40 px-6 md:px-16 py-4 md:py-8 rounded-full border border-white/20 shadow-2xl">
-              <h1 className="text-white text-2xl md:text-5xl font-bold tracking-tight whitespace-nowrap text-center" style={{
+          <div className="absolute top-6 md:top-12 right-6 md:right-12 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 z-20 w-max max-w-[90vw]">
+            <div className="backdrop-blur-xl bg-black/40 px-6 md:px-16 py-3 md:py-8 rounded-full border border-white/20 shadow-2xl">
+              <h1 className="text-white text-xl md:text-5xl font-bold tracking-tight whitespace-nowrap text-center" style={{
                 textShadow: '0 4px 12px rgba(0,0,0,0.3)'
               }}>
                 Latte Me Show You ☕
