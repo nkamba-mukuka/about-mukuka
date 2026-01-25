@@ -156,34 +156,32 @@ function App() {
 
   // COFFEE ZOOM VIEW
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-[#fdfaf7] animate-fade-in">
-      <div className="relative transform scale-110 transition-transform duration-700">
-        {/* Coffee Cup Visual */}
-        <div className="w-[600px] h-[600px] relative">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-100 to-amber-200 shadow-2xl border-[16px] border-white/95">
-            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-amber-800 to-amber-900"></div>
-            <div className="absolute inset-12 rounded-full bg-gradient-radial from-amber-100/95 via-amber-200/85 to-transparent"></div>
-          </div>
+    <div className="h-screen w-full flex items-center justify-center bg-[#1a1a1a] animate-fade-in relative">
 
-          {/* TEXT OVERLAY - Latte Art */}
-          <div className="absolute inset-0 flex items-center justify-center px-24 py-20">
-            <p
-              style={{
-                fontFamily: "'Dancing Script', cursive",
-                textShadow: '1px 1px 0px rgba(255,255,255,0.3)'
-              }}
-              className="text-[#4e342e] text-2xl leading-relaxed text-center line-clamp-6"
-            >
-              {currentResponse}
-            </p>
-          </div>
-        </div>
+      {/* THE MAIN BACKGROUND IMAGE */}
+      <img
+        src="/coffee.jpg"
+        className="h-screen w-full object-cover"
+        alt="Latte Art"
+      />
+
+      {/* THE TEXT OVERLAY - Positioned over the foam */}
+      <div className="absolute top-[48%] left-[54%] transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-center">
+        <p
+          className="text-[#3e2723] text-xl leading-relaxed italic px-4 latte-text-glow"
+          style={{
+            fontFamily: "'Dancing Script', cursive",
+            textShadow: '1px 1px 0px rgba(255,255,255,0.3)'
+          }}
+        >
+          {currentResponse}
+        </p>
       </div>
 
       {/* BACK BUTTON */}
       <button
         onClick={handleBackToShop}
-        className="absolute top-10 right-10 bg-amber-900 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-all duration-200 hover:scale-105"
+        className="absolute top-10 right-10 bg-amber-900/90 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-all duration-200 hover:scale-105 z-50"
         style={{ fontFamily: "'Architects Daughter', cursive" }}
       >
         ← Back to Shop

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Sacramento&display=swap');
 
 body {
   margin: 0;
@@ -50,4 +50,13 @@ code {
 
 .bg-gradient-radial {
   background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+.font-latte {
+  font-family: 'Dancing Script', cursive;
+}
+
+.latte-text-glow {
+  filter: blur(0.2px);
+  opacity: 0.9;
 }
