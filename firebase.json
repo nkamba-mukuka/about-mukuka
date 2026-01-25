@@ -19,7 +19,8 @@
     }
   ],
   "hosting": {
-    "public": "out",
+    "site": "latte-ai-portfolio",
+    "public": "frontend/build",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -33,4 +34,3 @@
     ]
   }
 }
-

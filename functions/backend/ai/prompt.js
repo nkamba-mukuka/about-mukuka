@@ -156,7 +156,12 @@ async function generateAIResponse(type, value) {
     if (lowerValue.includes("email")) return getEmailResponse();
     if (lowerValue.includes("phone") || lowerValue.includes("number")) return getPhoneResponse();
     if (lowerValue.includes("first school")) return getFirstSchoolResponse();
-    if (lowerValue.includes("hobby") || lowerValue.includes("interest")) return getOneHobbyResponse();
+    if (lowerValue.includes("hobby") || lowerValue.includes("interest")) {
+      if (lowerValue.includes("one") || lowerValue.includes("single")) {
+        return getOneHobbyResponse();
+      }
+      return generateInterestsResponse();
+    }
     if (lowerValue.includes("github")) return generateContactResponse("github");
     if (lowerValue.includes("linkedin")) return generateContactResponse("linkedin");
 
@@ -193,7 +198,7 @@ function generateMenuResponse(menuItem) {
   };
 
   const key = menuItem.toLowerCase();
-  return responses[key] || `Ouuu, great choice! ${menuItem} is honestly one of my favorites! ✨`;
+  return responses[key] || "Ouuu, great choice! " + menuItem + " is honestly one of my favorites! ✨";
 }
 
 /**
@@ -201,7 +206,7 @@ function generateMenuResponse(menuItem) {
  */
 function generateSkillsResponse(single = false) {
   if (single) {
-    return `Sure babe! One of my thrive zones is backend dev using Golang and PostgreSQL—it's honestly too good! ✨☕`;
+    return "Sure babe! One of my thrive zones is backend dev using Golang and PostgreSQL—it's honestly too good! ✨☕";
   }
   return `Ouuu, this is too good! Here's the tea on my skills ☕✨
   
@@ -214,11 +219,7 @@ Translating complex business needs into reliable technical architecture—that�
  * Generate response about projects
  */
 function generateProjectsResponse() {
-  return `Ouuu, let's talk about builds! ✨
-  
-I build high-impact, scalable web applications focusing on clean architecture and performance. From this 3D AI portfolio to robust backend APIs, I love creating technology that actually empowers people.
-
-Every project I take on is a new chance to innovate and push the boundaries of what's possible in tech. ☕💕`;
+  return "Ouuu, let's talk about builds! ✨\n\nI build high-impact, scalable web applications focusing on clean architecture and performance. From this 3D AI portfolio to robust backend APIs, I love creating technology that actually empowers people.\n\nEvery project I take on is a new chance to innovate and push the boundaries of what's possible in tech. ☕💕";
 }
 
 /**
