@@ -154,16 +154,84 @@ async function generateAIResponse(type, value) {
     }
 
     // Handle questions - match keywords to portfolio sections
+    // Expanded to cover Gen Z, Professional, and Millennial question styles
     const triggers = {
-      skills: ["skill", "what can you", "technolog", "tech stack", "language", "stack", "coding"],
-      projects: ["project", "build", "portfolio", "made", "creation", "app", "website"],
-      about: ["about", "who", "bio", "yourself", "story", "identity"],
-      interests: ["interest", "hobby", "hobbies", "like", "fun", "passion", "outside", "free time"],
-      hello: ["hello", "hi", "hey", "hai", "sup", "greetings", "hii", "heyy", "heyyy"],
-      contact: ["contact", "email", "reach", "hire", "phone", "talk", "social", "tiktok", "linkedin", "github"],
-      experience: ["experience", "work", "job", "career", "professional", "company", "worked", "do you do"],
-      education: ["education", "degree", "university", "school", "graduate", "study", "college"],
-      certification: ["certification", "certificate", "cert", "qualified"],
+      skills: [
+        "skill", "what can you", "technolog", "tech stack", "language", "stack", "coding",
+        "what do you code", "what languages", "what tech", "what tools", "what frameworks",
+        "expertise", "proficient", "competent", "what are you good at", "what's your stack",
+        "what do you build with", "tech skills", "programming languages", "what can you build"
+      ],
+      projects: [
+        "project", "build", "portfolio", "made", "creation", "app", "website",
+        "what have you built", "what did you make", "show me your work", "your work",
+        "what projects", "what apps", "what websites", "portfolio pieces", "your creations"
+      ],
+      about: [
+        "about", "who", "bio", "yourself", "story", "identity", "tell me about",
+        "what's your story", "what's your vibe", "what are you about", "what's your thing",
+        "introduce yourself", "who is mukuka", "what's your background"
+      ],
+      interests: [
+        "interest", "hobby", "hobbies", "like", "fun", "passion", "outside", "free time",
+        "what are you into", "what do you like", "what's your passion", "what drives you",
+        "what motivates you", "what are you passionate about", "what do you do for fun"
+      ],
+      hello: [
+        "hello", "hi", "hey", "hai", "sup", "greetings", "hii", "heyy", "heyyy",
+        "what's up", "whatsup", "wassup", "yo", "heya", "howdy", "hola", "hey there"
+      ],
+      contact: [
+        "contact", "email", "reach", "hire", "phone", "talk", "social", "tiktok", "linkedin", "github",
+        "how to reach", "get in touch", "connect", "collaborate", "work together", "let's talk",
+        "where can i find", "how do i contact", "can i reach", "reach out"
+      ],
+      experience: [
+        "experience", "work", "job", "career", "professional", "company", "worked", "do you do",
+        "where do you work", "what's your job", "what do you do for work", "current role",
+        "what company", "employment", "work history", "professional experience", "work background",
+        "where are you working", "what's your position", "what's your role"
+      ],
+      education: [
+        "education", "degree", "university", "school", "graduate", "study", "college",
+        "where did you study", "what did you study", "what's your degree", "qualifications",
+        "academic background", "where did you go to school", "what school", "alma mater"
+      ],
+      certification: [
+        "certification", "certificate", "cert", "qualified", "credentials", "certifications",
+        "what certifications", "what certs", "are you certified", "qualifications"
+      ],
+      availability: [
+        "available", "hiring", "freelance", "freelancing", "consulting", "contract", "remote",
+        "open to work", "looking for work", "taking clients", "accepting projects",
+        "do you freelance", "are you available", "can you work", "do you consult"
+      ],
+      rates: [
+        "rate", "price", "cost", "charge", "how much", "pricing", "fee", "budget",
+        "what's your rate", "how much do you charge", "what do you charge", "pricing",
+        "hourly rate", "project cost", "what's your price"
+      ],
+      collaboration: [
+        "collaborate", "work together", "partnership", "team up", "join", "help with",
+        "can you help", "can you build", "can you create", "do you do", "can you make",
+        "would you be interested", "want to work", "looking to collaborate"
+      ],
+      mentorship: [
+        "mentor", "mentorship", "teach", "learn", "advice", "guidance", "help me learn",
+        "can you mentor", "do you mentor", "teaching", "coaching", "tutoring"
+      ],
+      location: [
+        "where are you", "location", "where do you live", "based", "timezone", "country",
+        "city", "where are you from", "where are you located", "where you at"
+      ],
+      womenInTech: [
+        "women in tech", "female engineer", "gender", "diversity", "representation",
+        "only female", "women techsters", "advocacy", "empowerment"
+      ],
+      content: [
+        "content", "tiktok", "create content", "content creator", "videos", "posts",
+        "social media", "what content", "your content", "do you create"
+      ],
     };
 
     // Priority: Greetings first (before other checks)
@@ -176,8 +244,54 @@ async function generateAIResponse(type, value) {
     if (lowerValue.includes("github")) return generateContactResponse("github");
     if (lowerValue.includes("linkedin")) return generateContactResponse("linkedin");
 
+    // Gen Z / Casual Questions
+    if (lowerValue.includes("what's the tea") || lowerValue.includes("spill the tea") || lowerValue.includes("what's the vibe")) {
+      return generateAboutResponse();
+    }
+    if (lowerValue.includes("no cap") || lowerValue.includes("fr ") || lowerValue.includes(" for real")) {
+      return "Ouuu, no cap! Everything I share is 100% real, babe! ✨ I'm all about authenticity and keeping it real. What would you like to know? ☕💕";
+    }
+    if (lowerValue.includes("slay") || lowerValue.includes("that's fire") || lowerValue.includes("goals")) {
+      return "Aww, thank you babe! ✨ That's so sweet! I'm just out here trying to build cool things and help others in tech. What can I help you with? ☕💕";
+    }
+
+    // Availability & Work Questions
+    if (triggers.availability.some((t) => lowerValue.includes(t))) {
+      return generateAvailabilityResponse();
+    }
+
+    // Rates/Pricing Questions (Professional deflection)
+    if (triggers.rates.some((t) => lowerValue.includes(t))) {
+      return "Ouuu, great question! 💼✨ Rates depend on the project scope and requirements. Let's chat about your specific needs! Feel free to email me at " + PORTFOLIO_INFO.contact.email + " and we can discuss details. I'm always open to interesting projects! ☕";
+    }
+
+    // Collaboration Questions
+    if (triggers.collaboration.some((t) => lowerValue.includes(t))) {
+      return generateCollaborationResponse();
+    }
+
+    // Mentorship Questions
+    if (triggers.mentorship.some((t) => lowerValue.includes(t))) {
+      return generateMentorshipResponse();
+    }
+
+    // Location Questions
+    if (triggers.location.some((t) => lowerValue.includes(t))) {
+      return "Ouuu, I'm based in Lusaka, Zambia! 🇿🇲✨ But I work remotely and I'm always open to collaborating with amazing people worldwide. Location doesn't limit us—let's build something cool together! ☕💕";
+    }
+
+    // Women in Tech Questions
+    if (triggers.womenInTech.some((t) => lowerValue.includes(t))) {
+      return generateWomenInTechResponse();
+    }
+
+    // Content Creation Questions
+    if (triggers.content.some((t) => lowerValue.includes(t))) {
+      return generateContentResponse();
+    }
+
     // Specific personality/preference questions
-    if (lowerValue.includes("favorite language") || lowerValue.includes("favourite language")) {
+    if (lowerValue.includes("favorite language") || lowerValue.includes("favourite language") || lowerValue.includes("fav language")) {
       return "Ouuu, I definitely have a soft spot for Golang and React! They're just so clean and powerful. ✨☕";
     }
 
@@ -185,18 +299,19 @@ async function generateAIResponse(type, value) {
       return generateInterestsResponse();
     }
 
-    if (lowerValue.includes("who are you") || lowerValue.includes("what do you do")) {
+    if (lowerValue.includes("who are you") || lowerValue.includes("what do you do") || lowerValue.includes("tell me about yourself")) {
       return generateAboutResponse();
     }
 
-    if (lowerValue.includes("skill") || lowerValue.includes("what can you") || lowerValue.includes("technolog")) return generateSkillsResponse(true);
-
+    // Main category triggers
+    if (triggers.skills.some((t) => lowerValue.includes(t))) return generateSkillsResponse(true);
     if (triggers.projects.some((t) => lowerValue.includes(t))) return generateProjectsResponse();
     if (triggers.about.some((t) => lowerValue.includes(t))) return generateAboutResponse();
     if (triggers.contact.some((t) => lowerValue.includes(t))) return generateContactResponse();
     if (triggers.experience.some((t) => lowerValue.includes(t))) return generateExperienceResponse();
     if (triggers.education.some((t) => lowerValue.includes(t))) return generateEducationResponse();
     if (triggers.certification.some((t) => lowerValue.includes(t))) return generateCertificationsResponse();
+    if (triggers.interests.some((t) => lowerValue.includes(t))) return generateInterestsResponse();
 
     // Default response for unrecognized questions
     return generateDefaultResponse();
@@ -340,6 +455,85 @@ function generateCertificationsResponse() {
 From Backend Master Classes in Golang and Kubernetes to specialized Data Analysis honors, I'm dedicated to continuous learning. 
 
 These reflect my commitment to excellence and professional development—honestly, it's just good vibes only. ☕💕`;
+}
+
+/**
+ * Generate response about availability and work
+ */
+function generateAvailabilityResponse() {
+  return `Ouuu, great question! ✨ I'm currently working full-time at Hytel, but I'm always open to:
+  
+💼 Interesting freelance projects
+🤝 Meaningful collaborations
+📚 Mentorship opportunities
+🎬 Content partnerships
+
+Feel free to reach out at ${PORTFOLIO_INFO.contact.email} and let's chat about how we can work together! I love connecting with fellow creators and builders. ☕💕`;
+}
+
+/**
+ * Generate response about collaboration
+ */
+function generateCollaborationResponse() {
+  return `Ouuu, yes! I'm absolutely down to collaborate! ✨ I love working with other creators, developers, and innovators. 
+
+Whether it's:
+💻 Building something cool together
+📱 Content creation projects
+🎓 Educational initiatives
+💡 Startup ideas
+
+I'm always excited to explore new opportunities! Let's connect at ${PORTFOLIO_INFO.contact.email} and see what magic we can create together! ☕💕`;
+}
+
+/**
+ * Generate response about mentorship
+ */
+function generateMentorshipResponse() {
+  return `Ouuu, I love this! Mentorship is honestly one of my favorite things! ✨ As a Women in Tech Advocate, I'm passionate about helping others grow in STEM.
+
+I offer mentorship in:
+💻 Software Engineering & Development
+📊 Data Analysis
+🚀 Career Growth & Tech Industry Navigation
+💪 Building Confidence in Tech Spaces
+🎯 Portfolio & Project Guidance
+
+I've been through the journey of being the only woman in my department, so I get it! Let's connect at ${PORTFOLIO_INFO.contact.email} or check out my TikTok @coffee-to-code for daily tech tips! ☕💕`;
+}
+
+/**
+ * Generate response about Women in Tech
+ */
+function generateWomenInTechResponse() {
+  return `Ouuu, this is my heart! 💕✨ I'm a dedicated Women in Tech Advocate and I'm so passionate about this!
+
+My journey:
+🎓 Graduated as the only female in my Software Engineering department at CIU
+📚 Completed Tech4Dev WomenTechsters Data Analyst program (Grade: A+!)
+🎬 Create content to empower women in STEM
+💪 Advocate for diversity and inclusion in tech
+
+I believe representation matters and I'm here to show that women absolutely belong in tech! If you're a woman in tech (or aspiring to be), let's connect! I'm always here to support and cheer you on! ☕✨
+
+Check out my content on TikTok @coffee-to-code or reach out at ${PORTFOLIO_INFO.contact.email}! 💕`;
+}
+
+/**
+ * Generate response about content creation
+ */
+function generateContentResponse() {
+  return `Ouuu, yes! I'm a Content Creator too! ✨ I create tech content on TikTok @coffee-to-code where I share:
+  
+💻 Coding tips & tutorials
+🚀 Career advice for tech professionals
+💪 Women in Tech stories & inspiration
+☕ Day-in-the-life of a software engineer
+📚 Learning resources & recommendations
+
+I love making tech accessible and showing the real, authentic side of being a developer! Follow me for daily tech vibes and feel free to reach out if you want to collaborate on content! ☕💕
+
+TikTok: ${PORTFOLIO_INFO.contact.tiktok}`;
 }
 
 /**
