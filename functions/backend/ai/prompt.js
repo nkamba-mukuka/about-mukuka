@@ -160,7 +160,9 @@ async function generateAIResponse(type, value) {
         "skill", "what can you", "technolog", "tech stack", "language", "stack", "coding",
         "what do you code", "what languages", "what tech", "what tools", "what frameworks",
         "expertise", "proficient", "competent", "what are you good at", "what's your stack",
-        "what do you build with", "tech skills", "programming languages", "what can you build"
+        "what do you build with", "tech skills", "programming languages", "what can you build",
+        "whats your tech", "whats your stack", "what is your tech", "what is your stack",
+        "your tech stack", "your stack", "technologies", "tech stack", "programming stack"
       ],
       projects: [
         "project", "build", "portfolio", "made", "creation", "app", "website",
@@ -234,7 +236,17 @@ async function generateAIResponse(type, value) {
       ],
     };
 
-    // Priority: Greetings first (before other checks)
+    // Priority: Check for tech stack questions BEFORE greetings (more specific first)
+    // Use full response for tech stack questions (not the short single response)
+    if (triggers.skills.some((t) => lowerValue.includes(t))) {
+      // Check if it's specifically asking about tech stack (full answer)
+      if (lowerValue.includes("tech stack") || lowerValue.includes("stack") || lowerValue.includes("technologies")) {
+        return generateSkillsResponse(false); // Full response
+      }
+      return generateSkillsResponse(true); // Short response for other skill questions
+    }
+
+    // Priority: Greetings (but only if no other match)
     if (triggers.hello.some((t) => lowerValue.includes(t))) return generateGreetingResponse();
 
     // Priority: Granular Answers
@@ -303,8 +315,7 @@ async function generateAIResponse(type, value) {
       return generateAboutResponse();
     }
 
-    // Main category triggers
-    if (triggers.skills.some((t) => lowerValue.includes(t))) return generateSkillsResponse(true);
+    // Main category triggers (skills already checked above, but keep for other variations)
     if (triggers.projects.some((t) => lowerValue.includes(t))) return generateProjectsResponse();
     if (triggers.about.some((t) => lowerValue.includes(t))) return generateAboutResponse();
     if (triggers.contact.some((t) => lowerValue.includes(t))) return generateContactResponse();

@@ -30,7 +30,6 @@ function App() {
   // App readiness and responsive state
   const [isAppReady, setIsAppReady] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [videosLoaded, setVideosLoaded] = useState<Set<string>>(new Set());
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Responsive breakpoint handler
@@ -73,62 +72,47 @@ function App() {
     }
   }, [view]);
 
-  // Video loading tracker
+  // Video loading tracker (for future use if needed)
   const handleVideoLoad = (videoSrc: string) => {
-    setVideosLoaded((prev) => {
-      const next = new Set(prev);
-      next.add(videoSrc);
-      return next;
-    });
+    // Video loaded - can be used for analytics or future features
+    console.log(`Video loaded: ${videoSrc}`);
   };
+
+  // Use ref to track if we've already initialized (prevents infinite loops)
+  const hasInitialized = useRef(false);
 
   // Initial app loader - prioritizes video loading
   useEffect(() => {
-    // Only run once on mount
-    let isReady = false;
-    
-    const checkAndSetReady = () => {
-      if (isReady) return;
-      
-      // Check sessionStorage for preloaded videos
-      const baristaReady = sessionStorage.getItem('video-ready-preload-barista') === 'true';
-      
-      // Check HTML preloader element directly
-      const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
-      const baristaElementReady = preloadBarista && preloadBarista.readyState >= 3;
-      
-      if (baristaReady || baristaElementReady) {
-        isReady = true;
-        setIsAppReady(true);
-        return true;
-      }
-      
-      return false;
-    };
+    // Prevent multiple initializations
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
 
-    // Check immediately
-    if (checkAndSetReady()) {
+    // Check sessionStorage for preloaded videos
+    const baristaReady = sessionStorage.getItem('video-ready-preload-barista') === 'true';
+    
+    // Check HTML preloader element directly
+    const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
+    const baristaElementReady = preloadBarista && preloadBarista.readyState >= 3;
+    
+    // If already ready, show app immediately
+    if (baristaReady || baristaElementReady) {
+      setIsAppReady(true);
       return;
     }
 
     // Listen for video readiness events
-    const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
-    
     const handleVideoReady = () => {
-      if (!isReady) {
-        isReady = true;
-        setIsAppReady(true);
-      }
+      setIsAppReady(true);
     };
 
     if (preloadBarista) {
       // Check current state
       if (preloadBarista.readyState >= 3) {
-        handleVideoReady();
+        setIsAppReady(true);
         return;
       }
       
-      // Listen for readiness events
+      // Listen for readiness events (once: true ensures they only fire once)
       preloadBarista.addEventListener('canplaythrough', handleVideoReady, { once: true });
       preloadBarista.addEventListener('loadeddata', handleVideoReady, { once: true });
       preloadBarista.addEventListener('canplay', handleVideoReady, { once: true });
@@ -136,10 +120,7 @@ function App() {
 
     // Fallback timeout - show app after 1.5 seconds max (videos will load progressively)
     const timeout = setTimeout(() => {
-      if (!isReady) {
-        isReady = true;
-        setIsAppReady(true);
-      }
+      setIsAppReady(true);
     }, 1500);
 
     return () => {
