@@ -166,6 +166,9 @@ async function generateAIResponse(type, value) {
       certification: ["certification", "certificate", "cert", "qualified"],
     };
 
+    // Priority: Greetings first (before other checks)
+    if (triggers.hello.some((t) => lowerValue.includes(t))) return generateGreetingResponse();
+
     // Priority: Granular Answers
     if (lowerValue.includes("email")) return getEmailResponse();
     if (lowerValue.includes("phone") || lowerValue.includes("number")) return getPhoneResponse();
@@ -190,7 +193,6 @@ async function generateAIResponse(type, value) {
 
     if (triggers.projects.some((t) => lowerValue.includes(t))) return generateProjectsResponse();
     if (triggers.about.some((t) => lowerValue.includes(t))) return generateAboutResponse();
-    if (triggers.hello.some((t) => lowerValue.includes(t))) return generateGreetingResponse();
     if (triggers.contact.some((t) => lowerValue.includes(t))) return generateContactResponse();
     if (triggers.experience.some((t) => lowerValue.includes(t))) return generateExperienceResponse();
     if (triggers.education.some((t) => lowerValue.includes(t))) return generateEducationResponse();
