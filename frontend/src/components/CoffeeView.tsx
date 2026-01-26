@@ -26,8 +26,8 @@ export default function CoffeeView({ videoRef, response, onBack }: CoffeeViewPro
       </video>
 
       {/* RECEIPT CONTAINER */}
-      <div className="relative z-30 w-full h-full flex items-center justify-center md:justify-start px-4 md:px-20 py-20 pointer-events-none">
-        <div className="receipt text-[#3e2723] w-full max-w-[480px] p-8 md:p-12 shadow-2xl pointer-events-auto mt-10 md:mt-0">
+      <div className="relative z-30 w-full h-full flex items-center justify-center md:justify-start px-3 sm:px-4 md:px-20 py-12 sm:py-16 md:py-20 pointer-events-none">
+        <div className="receipt text-[#3e2723] w-full max-w-[95%] sm:max-w-[480px] p-6 sm:p-8 md:p-12 shadow-2xl pointer-events-auto mt-8 sm:mt-10 md:mt-0">
           <div className="border-b border-dashed border-[#3e2723]/30 pb-4 md:pb-6 mb-4 md:mb-6 text-center">
             <p className="font-bold tracking-widest text-base md:text-lg uppercase text-[#3e2723]">
               Coffee Receipt
@@ -37,11 +37,11 @@ export default function CoffeeView({ videoRef, response, onBack }: CoffeeViewPro
             </p>
           </div>
           <p
-            className="text-xl md:text-2xl leading-relaxed italic font-medium overflow-hidden text-[#3e2723]"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed italic font-medium overflow-hidden text-[#3e2723]"
             style={{
-              maxHeight: "550px",
+              maxHeight: "400px",
               display: "-webkit-box",
-              WebkitLineClamp: 14,
+              WebkitLineClamp: 12,
               WebkitBoxOrient: "vertical",
             }}
           >
@@ -55,12 +55,13 @@ export default function CoffeeView({ videoRef, response, onBack }: CoffeeViewPro
         </div>
       </div>
 
-      {/* BACK BUTTON */}
+      {/* BACK BUTTON - Responsive */}
       <button
         onClick={onBack}
-        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-6 py-2 md:px-8 md:py-3 rounded-full text-lg md:text-xl font-bold shadow-2xl hover:scale-105 transition-all active:scale-95 border-2 border-white/20"
+        className="fixed top-3 right-3 sm:top-4 sm:right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 rounded-full text-sm sm:text-base md:text-lg lg:text-xl font-bold shadow-2xl hover:scale-105 transition-all active:scale-95 border-2 border-white/20"
       >
-        <span>← Order something else</span>
+        <span className="hidden sm:inline">← Order something else</span>
+        <span className="sm:hidden">← Back</span>
       </button>
     </div>
   );

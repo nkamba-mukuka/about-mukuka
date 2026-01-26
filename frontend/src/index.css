@@ -102,32 +102,53 @@ code {
   background-color: #4a322d;
 }
 
-/* Chat Bubble Styling */
+/* Chat Bubble Styling - Responsive */
 .bubble-user {
   background: #2b1d1a;
   color: #fffcf0;
-  border-radius: 28px 28px 4px 28px;
-  padding: 20px 32px;
+  border-radius: 20px 20px 4px 20px;
+  padding: 16px 24px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-  max-width: clamp(280px, 85%, 600px); /* Limit width on ultra-wide screens */
+  max-width: clamp(280px, 85%, 600px);
   align-self: flex-end;
   animation: bubble-pop 0.3s ease-out;
-  font-size: clamp(1rem, 2vw, 1.25rem); /* Fluid font size */
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .bubble-barista {
   background: #fffcf0;
   color: #000000;
-  border-radius: 28px 28px 28px 4px;
-  padding: 20px 32px;
+  border-radius: 20px 20px 20px 4px;
+  padding: 16px 24px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
   max-width: clamp(280px, 85%, 600px);
   align-self: flex-start;
   border: 1px solid rgba(0, 0, 0, 0.1);
   animation: bubble-slide-smooth 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Tablet and up - larger bubbles */
+@media (min-width: 768px) {
+  .bubble-user, .bubble-barista {
+    border-radius: 28px;
+    padding: 20px 32px;
+    line-height: 1.6;
+  }
+  
+  .bubble-user {
+    border-radius: 28px 28px 4px 28px;
+  }
+  
+  .bubble-barista {
+    border-radius: 28px 28px 28px 4px;
+  }
 }
 
 /* Deskop Fluid Typography Header */
@@ -141,6 +162,20 @@ h1 {
   }
 }
 
+@keyframes bubble-pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @keyframes bubble-slide-smooth {
   from { 
     transform: translateX(-30px) scale(0.98); 
@@ -149,6 +184,21 @@ h1 {
   to { 
     transform: translateX(0) scale(1); 
     opacity: 1; 
+  }
+}
+
+/* SMALL MOBILE SCREENS (iPhone SE, etc) */
+@media (max-width: 375px) {
+  .bubble-barista, .bubble-user {
+    padding: 14px 20px !important;
+    font-size: 0.95rem !important;
+    max-width: 94% !important;
+    line-height: 1.5 !important;
+  }
+
+  .receipt {
+    padding: 1rem !important;
+    font-size: 0.9rem !important;
   }
 }
 
@@ -166,15 +216,16 @@ h1 {
 
   .receipt {
     padding: 1.25rem !important;
-    transform: scale(0.9) !important;
-    margin-top: 2rem !important;
+    margin-top: 1.5rem !important;
     width: 95% !important;
+    max-width: 95% !important;
   }
   
   .bubble-barista, .bubble-user {
-    padding: 16px 24px !important;
-    font-size: 1.1rem !important;
+    padding: 16px 22px !important;
+    font-size: 1rem !important;
     max-width: 92% !important;
+    line-height: 1.5 !important;
   }
 
   h1 {
@@ -182,12 +233,34 @@ h1 {
   }
 
   aside {
-    max-height: 50vh !important; /* Allow more menu items to be visible */
+    max-height: 50vh !important;
+    padding: 1rem !important;
   }
 
   /* Reduce button padding on mobile to save space */
   aside button {
-    padding: 12px 16px !important;
+    padding: 10px 14px !important;
+    font-size: 0.9rem !important;
+  }
+
+  aside button span:first-child {
+    font-size: 1rem !important;
+  }
+
+  aside button span:last-child {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* TABLET OPTIMIZATION */
+@media (min-width: 431px) and (max-width: 768px) {
+  .bubble-barista, .bubble-user {
+    max-width: 80% !important;
+    padding: 18px 28px !important;
+  }
+
+  .receipt {
+    max-width: 90% !important;
   }
 }
 
@@ -195,18 +268,33 @@ h1 {
 @media (max-width: 350px) {
   .receipt {
     padding: 1rem !important;
-    transform: scale(0.8) !important;
-    margin-top: 3rem !important;
+    margin-top: 2rem !important;
+    width: 98% !important;
+    max-width: 98% !important;
   }
   
   .bubble-barista, .bubble-user {
-    padding: 12px 20px !important;
-    font-size: 1rem !important;
-    max-width: 90% !important;
+    padding: 12px 18px !important;
+    font-size: 0.9rem !important;
+    max-width: 95% !important;
+    line-height: 1.4 !important;
   }
 
   h1 {
     font-size: 1.25rem !important;
+  }
+
+  aside button {
+    padding: 8px 12px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* iPhone 14 Pro Max and similar large phones */
+@media (min-width: 431px) and (max-width: 480px) {
+  .bubble-barista, .bubble-user {
+    max-width: 88% !important;
+    padding: 18px 26px !important;
   }
 }
 

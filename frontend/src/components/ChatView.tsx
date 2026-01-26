@@ -21,10 +21,14 @@ export default function ChatView({
 }: ChatViewProps) {
   return (
     <div className="h-screen w-full relative flex flex-col items-center justify-center overflow-hidden bg-[#2b1d1a]">
+      {/* Brown background for mobile - always visible */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#4a322d] via-[#5d4037] to-[#3e2723] md:hidden"></div>
+      
+      {/* Video - hidden on mobile, visible on tablet+ */}
       <video
         ref={videoRef}
         key="chat-video"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover"
         autoPlay
         loop
         muted
@@ -42,8 +46,8 @@ export default function ChatView({
       </video>
 
       {/* CHAT INTERFACE */}
-      <div className="relative z-20 w-full max-w-4xl px-4 md:px-10 flex flex-col h-full py-20 pointer-events-none">
-        <div className="flex-1 flex flex-col gap-6 justify-end pb-12">
+      <div className="relative z-20 w-full max-w-4xl px-3 sm:px-4 md:px-10 flex flex-col h-full py-16 sm:py-20 pointer-events-none">
+        <div className="flex-1 flex flex-col gap-4 sm:gap-6 justify-end pb-8 sm:pb-12">
           {/* USER BUBBLE */}
           <div className="bubble-user ml-auto pointer-events-auto shadow-2xl">{question}</div>
 
@@ -56,17 +60,18 @@ export default function ChatView({
         </div>
 
         {/* FOLLOW UP INPUT */}
-        <div className="mt-auto pointer-events-auto pb-10">
+        <div className="mt-auto pointer-events-auto pb-6 sm:pb-10">
           <QuestionInput onSubmit={onQuestionSubmit} isLoading={isLoading} />
         </div>
       </div>
 
-      {/* BACK BUTTON */}
+      {/* BACK BUTTON - Responsive positioning */}
       <button
         onClick={onBack}
-        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-6 py-2 md:px-8 md:py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-lg md:text-xl border-2 border-white/20"
+        className="fixed top-3 right-3 sm:top-4 sm:right-4 md:top-8 md:right-8 z-50 bg-[#4a322d] text-[#fffcf0] px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all text-sm sm:text-base md:text-lg lg:text-xl border-2 border-white/20"
       >
-        ← Order something else
+        <span className="hidden sm:inline">← Order something else</span>
+        <span className="sm:hidden">← Back</span>
       </button>
     </div>
   );
