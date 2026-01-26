@@ -3,7 +3,7 @@ import QuestionInput from "./QuestionInput";
 import { renderContentWithLinks } from "../utils/textUtils";
 
 interface ChatViewProps {
-  videoRef: RefObject<HTMLVideoElement>;
+  videoRef: RefObject<HTMLVideoElement | null>;
   question: string;
   response: string | null;
   isLoading: boolean;

@@ -2,7 +2,7 @@ import { RefObject } from "react";
 import QuestionInput from "./QuestionInput";
 
 interface ShopViewProps {
-  videoRef: RefObject<HTMLVideoElement>;
+  videoRef: RefObject<HTMLVideoElement | null>;
   isMobile: boolean;
   isLoading: boolean;
   onMenuSelect: (item: string) => void;

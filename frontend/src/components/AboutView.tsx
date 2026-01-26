@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 
 interface AboutViewProps {
-  videoRef: RefObject<HTMLVideoElement>;
+  videoRef: RefObject<HTMLVideoElement | null>;
   showBubble1: boolean;
   showBubble2: boolean;
   showBubble3: boolean;

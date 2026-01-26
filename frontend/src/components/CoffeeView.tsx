@@ -2,7 +2,7 @@ import { RefObject } from "react";
 import { renderContentWithLinks, summarizeForReceipt } from "../utils/textUtils";
 
 interface CoffeeViewProps {
-  videoRef: RefObject<HTMLVideoElement>;
+  videoRef: RefObject<HTMLVideoElement | null>;
   response: string | null;
   onBack: () => void;
 }
