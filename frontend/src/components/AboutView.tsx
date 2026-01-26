@@ -20,7 +20,7 @@ export default function AboutView({
       {/* Brown background fallback - visible on very small screens or while video loads */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#4a322d] via-[#5d4037] to-[#3e2723] opacity-50 sm:opacity-0"></div>
       
-      {/* Video - responsive, visible on all screens but with lower opacity on mobile */}
+      {/* Video - responsive, visible on all screens but with lower opacity on mobile - Preloaded for fast loading */}
       <video
         ref={videoRef}
         key="about-video"
@@ -32,6 +32,9 @@ export default function AboutView({
         playsInline
         preload="auto"
         controls={false}
+        onCanPlayThrough={() => {
+          // Video ready
+        }}
         onTimeUpdate={(e) => {
           const video = e.currentTarget;
           if (video.currentTime >= 4) {

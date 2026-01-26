@@ -82,16 +82,80 @@ function App() {
     });
   };
 
-  // Initial app loader - waits for critical video
+  // Initial app loader - prioritizes video loading
   useEffect(() => {
-    const timeout = setTimeout(() => setIsAppReady(true), 5000);
+    // Check if videos were preloaded from HTML
+    const checkPreloadedVideos = () => {
+      const baristaReady = sessionStorage.getItem('video-ready-preload-barista') === 'true';
+      const chatReady = sessionStorage.getItem('video-ready-preload-chat') === 'true';
+      const coffeeReady = sessionStorage.getItem('video-ready-preload-coffee') === 'true';
+      const aboutReady = sessionStorage.getItem('video-ready-preload-about') === 'true';
+      
+      if (baristaReady) {
+        setVideosLoaded(prev => new Set(prev).add('/barista.mp4'));
+      }
+      if (chatReady) {
+        setVideosLoaded(prev => new Set(prev).add('/barista-chat.mp4'));
+      }
+      if (coffeeReady) {
+        setVideosLoaded(prev => new Set(prev).add('/coffee-cup.mp4'));
+      }
+      if (aboutReady) {
+        setVideosLoaded(prev => new Set(prev).add('/about-me.mp4'));
+      }
+      
+      return baristaReady; // Main video is most important
+    };
 
-    if (videosLoaded.has("/barista.mp4")) {
-      setIsAppReady(true);
-      clearTimeout(timeout);
+    // Check preloaded videos immediately
+    const preloaded = checkPreloadedVideos();
+    
+    // Also check HTML preloader elements directly
+    const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
+    if (preloadBarista && preloadBarista.readyState >= 3) {
+      setVideosLoaded(prev => new Set(prev).add('/barista.mp4'));
     }
 
-    return () => clearTimeout(timeout);
+    // Wait for main barista video (most critical)
+    if (videosLoaded.has("/barista.mp4") || preloaded) {
+      setIsAppReady(true);
+      return;
+    }
+
+    // Listen for video readiness
+    const handleVideoReady = () => {
+      if (videosLoaded.has("/barista.mp4")) {
+        setIsAppReady(true);
+      }
+    };
+
+    // Check periodically and listen to preloader
+    const interval = setInterval(() => {
+      if (checkPreloadedVideos() || videosLoaded.has("/barista.mp4")) {
+        setIsAppReady(true);
+        clearInterval(interval);
+      }
+    }, 100);
+
+    if (preloadBarista) {
+      preloadBarista.addEventListener('canplaythrough', handleVideoReady, { once: true });
+      preloadBarista.addEventListener('loadeddata', handleVideoReady, { once: true });
+    }
+
+    // Fallback timeout - show app after 2 seconds max (videos will fade in)
+    const timeout = setTimeout(() => {
+      setIsAppReady(true);
+      clearInterval(interval);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+      if (preloadBarista) {
+        preloadBarista.removeEventListener('canplaythrough', handleVideoReady);
+        preloadBarista.removeEventListener('loadeddata', handleVideoReady);
+      }
+    };
   }, [videosLoaded]);
 
   /**

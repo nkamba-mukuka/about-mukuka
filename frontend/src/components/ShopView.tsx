@@ -77,14 +77,9 @@ export default function ShopView({
           playsInline
           preload="auto"
           controls={false}
-        >
-          <source src="/barista.mp4" type="video/mp4" />
-        </video>
-        {/* Transparent trigger to track load */}
-        <video
-          className="hidden"
           onCanPlayThrough={() => onVideoLoad("/barista.mp4")}
-          muted
+          onLoadedData={() => onVideoLoad("/barista.mp4")}
+          onCanPlay={() => onVideoLoad("/barista.mp4")}
         >
           <source src="/barista.mp4" type="video/mp4" />
         </video>

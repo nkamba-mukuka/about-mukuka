@@ -24,7 +24,7 @@ export default function ChatView({
       {/* Brown background for mobile - always visible */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#4a322d] via-[#5d4037] to-[#3e2723] md:hidden"></div>
       
-      {/* Video - hidden on mobile, visible on tablet+ */}
+      {/* Video - hidden on mobile, visible on tablet+ - Preloaded for fast loading */}
       <video
         ref={videoRef}
         key="chat-video"
@@ -35,6 +35,9 @@ export default function ChatView({
         playsInline
         preload="auto"
         controls={false}
+        onCanPlayThrough={() => {
+          // Video ready
+        }}
         onTimeUpdate={(e) => {
           const video = e.currentTarget;
           if (video.currentTime >= 4) {

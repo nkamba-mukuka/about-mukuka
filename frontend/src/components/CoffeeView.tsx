@@ -10,7 +10,7 @@ interface CoffeeViewProps {
 export default function CoffeeView({ videoRef, response, onBack }: CoffeeViewProps) {
   return (
     <div className="h-screen w-full relative flex flex-col md:flex-row items-center justify-center overflow-y-auto md:overflow-hidden bg-[#2b1d1a]">
-      {/* VIDEO BACKGROUND */}
+      {/* VIDEO BACKGROUND - Preloaded for fast loading */}
       <video
         ref={videoRef}
         key="coffee-video"
@@ -21,6 +21,9 @@ export default function CoffeeView({ videoRef, response, onBack }: CoffeeViewPro
         playsInline
         preload="auto"
         controls={false}
+        onCanPlayThrough={() => {
+          // Video ready
+        }}
       >
         <source src="/coffee-cup.mp4" type="video/mp4" />
       </video>
