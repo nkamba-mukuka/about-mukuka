@@ -159,7 +159,7 @@ async function generateAIResponse(type, value) {
       projects: ["project", "build", "portfolio", "made", "creation", "app", "website"],
       about: ["about", "who", "bio", "yourself", "story", "identity"],
       interests: ["interest", "hobby", "hobbies", "like", "fun", "passion", "outside", "free time"],
-      hello: ["hello", "hi", "hey", "sup", "greetings"],
+      hello: ["hello", "hi", "hey", "hai", "sup", "greetings", "hii", "heyy", "heyyy"],
       contact: ["contact", "email", "reach", "hire", "phone", "talk", "social", "tiktok", "linkedin", "github"],
       experience: ["experience", "work", "job", "career", "professional", "company", "worked", "do you do"],
       education: ["education", "degree", "university", "school", "graduate", "study", "college"],
