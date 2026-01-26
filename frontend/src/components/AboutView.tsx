@@ -17,14 +17,15 @@ export default function AboutView({
 }: AboutViewProps) {
   return (
     <div className="h-screen w-full relative flex flex-col items-center justify-center overflow-hidden bg-[#2b1d1a]">
-      {/* Brown background for mobile - always visible */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#4a322d] via-[#5d4037] to-[#3e2723] md:hidden"></div>
+      {/* Brown background fallback - visible on very small screens or while video loads */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#4a322d] via-[#5d4037] to-[#3e2723] opacity-50 sm:opacity-0"></div>
       
-      {/* Video - hidden on mobile, visible on tablet+ */}
+      {/* Video - responsive, visible on all screens but with lower opacity on mobile */}
       <video
         ref={videoRef}
         key="about-video"
-        className="hidden md:block absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover opacity-50 sm:opacity-70 md:opacity-100 transition-opacity duration-500"
+        style={{ objectPosition: "center center" }}
         autoPlay
         loop
         muted
