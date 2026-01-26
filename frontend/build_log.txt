@@ -1,0 +1,22 @@
+
+> frontend@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/react-scripts/scripts/build.js:19
+  throw err;
+  ^
+
+RpcRemoteError: EPERM: operation not permitted, lstat '/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/.cache/tsconfig.tsbuildinfo'
+    at Object.realpathSync (node:fs:2786:29)
+    at getRealPath (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/file-system/RealFileSystem.js:73:100)
+    at Object.realPath (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/file-system/RealFileSystem.js:153:20)
+    at Object.readFile (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/file-system/PassiveFileSystem.js:53:44)
+    at Object.readFile (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/reporter/ControlledTypeScriptSystem.js:131:44)
+    at Object.readFile (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/typescript/lib/typescript.js:126243:50)
+    at readBuilderProgram (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/typescript/lib/typescript.js:126391:32)
+    at Object.createWatchProgram (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/typescript/lib/typescript.js:126555:26)
+    at Object.<anonymous> (/Users/mukukahnkambagmail.com/Desktop/latte-ai-portfolio/frontend/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/reporter/TypeScriptReporter.js:304:59)
+    at Generator.next (<anonymous>)
+
+Node.js v22.21.1

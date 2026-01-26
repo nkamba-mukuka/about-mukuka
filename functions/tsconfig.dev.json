@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noImplicitReturns": false,
+    "noUnusedLocals": false
+  },
+  "include": [
+    "src",
+    "backend"
+  ]
+}
+
