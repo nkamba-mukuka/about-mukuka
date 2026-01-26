@@ -84,79 +84,73 @@ function App() {
 
   // Initial app loader - prioritizes video loading
   useEffect(() => {
-    // Check if videos were preloaded from HTML
-    const checkPreloadedVideos = () => {
+    // Only run once on mount
+    let isReady = false;
+    
+    const checkAndSetReady = () => {
+      if (isReady) return;
+      
+      // Check sessionStorage for preloaded videos
       const baristaReady = sessionStorage.getItem('video-ready-preload-barista') === 'true';
-      const chatReady = sessionStorage.getItem('video-ready-preload-chat') === 'true';
-      const coffeeReady = sessionStorage.getItem('video-ready-preload-coffee') === 'true';
-      const aboutReady = sessionStorage.getItem('video-ready-preload-about') === 'true';
       
-      if (baristaReady) {
-        setVideosLoaded(prev => new Set(prev).add('/barista.mp4'));
-      }
-      if (chatReady) {
-        setVideosLoaded(prev => new Set(prev).add('/barista-chat.mp4'));
-      }
-      if (coffeeReady) {
-        setVideosLoaded(prev => new Set(prev).add('/coffee-cup.mp4'));
-      }
-      if (aboutReady) {
-        setVideosLoaded(prev => new Set(prev).add('/about-me.mp4'));
+      // Check HTML preloader element directly
+      const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
+      const baristaElementReady = preloadBarista && preloadBarista.readyState >= 3;
+      
+      if (baristaReady || baristaElementReady) {
+        isReady = true;
+        setIsAppReady(true);
+        return true;
       }
       
-      return baristaReady; // Main video is most important
+      return false;
     };
 
-    // Check preloaded videos immediately
-    const preloaded = checkPreloadedVideos();
-    
-    // Also check HTML preloader elements directly
-    const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
-    if (preloadBarista && preloadBarista.readyState >= 3) {
-      setVideosLoaded(prev => new Set(prev).add('/barista.mp4'));
-    }
-
-    // Wait for main barista video (most critical)
-    if (videosLoaded.has("/barista.mp4") || preloaded) {
-      setIsAppReady(true);
+    // Check immediately
+    if (checkAndSetReady()) {
       return;
     }
 
-    // Listen for video readiness
+    // Listen for video readiness events
+    const preloadBarista = document.getElementById('preload-barista') as HTMLVideoElement;
+    
     const handleVideoReady = () => {
-      if (videosLoaded.has("/barista.mp4")) {
+      if (!isReady) {
+        isReady = true;
         setIsAppReady(true);
       }
     };
 
-    // Check periodically and listen to preloader
-    const interval = setInterval(() => {
-      if (checkPreloadedVideos() || videosLoaded.has("/barista.mp4")) {
-        setIsAppReady(true);
-        clearInterval(interval);
-      }
-    }, 100);
-
     if (preloadBarista) {
+      // Check current state
+      if (preloadBarista.readyState >= 3) {
+        handleVideoReady();
+        return;
+      }
+      
+      // Listen for readiness events
       preloadBarista.addEventListener('canplaythrough', handleVideoReady, { once: true });
       preloadBarista.addEventListener('loadeddata', handleVideoReady, { once: true });
+      preloadBarista.addEventListener('canplay', handleVideoReady, { once: true });
     }
 
-    // Fallback timeout - show app after 2 seconds max (videos will fade in)
+    // Fallback timeout - show app after 1.5 seconds max (videos will load progressively)
     const timeout = setTimeout(() => {
-      setIsAppReady(true);
-      clearInterval(interval);
-    }, 2000);
+      if (!isReady) {
+        isReady = true;
+        setIsAppReady(true);
+      }
+    }, 1500);
 
     return () => {
       clearTimeout(timeout);
-      clearInterval(interval);
       if (preloadBarista) {
         preloadBarista.removeEventListener('canplaythrough', handleVideoReady);
         preloadBarista.removeEventListener('loadeddata', handleVideoReady);
+        preloadBarista.removeEventListener('canplay', handleVideoReady);
       }
     };
-  }, [videosLoaded]);
+  }, []); // Empty dependency array - only run once on mount
 
   /**
    * Handles menu item selection
