@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Handshake, Users, Cpu, Menu, X } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 import { site } from "../content/site";
 import FloatingBlobs from "./FloatingBlobs";
 import MouseFollowGradient from "./MouseFollowGradient";
@@ -29,11 +30,15 @@ function useIsMobile() {
   return isMobile;
 }
 
+const NAME_LINK_COLOR = { light: "#B5659E", dark: "#a78bfa" };
+
 export default function Layout() {
   const location = useLocation();
+  const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const nameColor = theme === "dark" ? NAME_LINK_COLOR.dark : NAME_LINK_COLOR.light;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -71,7 +76,8 @@ export default function Layout() {
         <nav className={navBarClass}>
           <Link
             to="/"
-            className="font-serif text-base sm:text-lg font-semibold shrink-0 min-w-0 truncate transition-colors duration-300 text-[#B5659E] hover:text-[#9B4D85] dark:text-[#a78bfa] dark:hover:text-[#c4b5fd]"
+            className="font-serif text-base sm:text-lg font-semibold shrink-0 min-w-0 truncate transition-colors duration-300 hover:opacity-90"
+            style={{ color: nameColor }}
             onClick={() => setMenuOpen(false)}
           >
             {site.name}
