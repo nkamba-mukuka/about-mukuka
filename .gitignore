@@ -47,6 +47,9 @@ firebase-debug.*.log
 .firebase/
 .firebaserc.local
 
+# Personal PDFs in repo root (use frontend/public/cv.pdf for site)
+/*.pdf
+
 # TypeScript
 *.tsbuildinfo
 

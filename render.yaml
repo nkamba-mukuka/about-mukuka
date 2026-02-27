@@ -1,0 +1,9 @@
+# Render.com: free backend for the AI chatbot (no Firebase Blaze needed).
+# In Dashboard: New → Web Service, connect repo, set Root Directory to "functions".
+services:
+  - type: web
+    name: latte-ai-chatbot-api
+    runtime: node
+    rootDir: functions
+    buildCommand: npm install
+    startCommand: node serve-local.js

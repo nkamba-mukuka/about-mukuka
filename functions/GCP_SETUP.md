@@ -4,11 +4,11 @@ Follow these steps to set up the Latte AI Portfolio backend on Google Cloud Plat
 
 ## Prerequisites
 
-- Google Cloud Project: `latte-ai-portfolio`
+- Google Cloud Project: `about-mukuka`
 - Firebase CLI installed and authenticated
 - gcloud CLI installed (for local development)
 - **Firebase Blaze (pay-as-you-go) plan** - Required for Cloud Functions deployment
-  - Upgrade at: https://console.firebase.google.com/project/latte-ai-portfolio/usage/details
+  - Upgrade at: https://console.firebase.google.com/project/about-mukuka/usage/details
 
 ## MVP Approach: Hardcoded Responses
 
@@ -25,14 +25,14 @@ Follow these steps to set up the Latte AI Portfolio backend on Google Cloud Plat
 Enable Cloud Functions and related APIs:
 
 ```bash
-gcloud services enable cloudfunctions.googleapis.com --project=latte-ai-portfolio
-gcloud services enable cloudbuild.googleapis.com --project=latte-ai-portfolio
-gcloud services enable run.googleapis.com --project=latte-ai-portfolio
+gcloud services enable cloudfunctions.googleapis.com --project=about-mukuka
+gcloud services enable cloudbuild.googleapis.com --project=about-mukuka
+gcloud services enable run.googleapis.com --project=about-mukuka
 ```
 
 **Note:** For MVP with hardcoded responses, Vertex AI API is not required. If you plan to upgrade to AI-generated responses later, enable it with:
 ```bash
-gcloud services enable aiplatform.googleapis.com --project=latte-ai-portfolio
+gcloud services enable aiplatform.googleapis.com --project=about-mukuka
 ```
 
 ## Step 2: Configure Firebase Functions (Optional for MVP)
@@ -43,7 +43,7 @@ If you plan to use Vertex AI later, you can set config:
 ```bash
 firebase functions:config:set \
   ai.provider="vertex" \
-  gcp.project_id="latte-ai-portfolio" \
+  gcp.project_id="about-mukuka" \
   gcp.location="us-central1" \
   vertex.model="gemini-1.5-flash"
 ```
@@ -71,7 +71,7 @@ firebase deploy --only functions
 Test your endpoint:
 
 ```bash
-curl -X POST https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask \
+curl -X POST https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask \
   -H "Content-Type: application/json" \
   -d '{"type":"question","value":"Tell me about your portfolio"}'
 ```
@@ -85,14 +85,14 @@ For testing locally with the Firebase emulator:
    # Not required for hardcoded MVP approach
    # Only needed if upgrading to AI-generated responses
    AI_PROVIDER=vertex
-   GCP_PROJECT_ID=latte-ai-portfolio
+   GCP_PROJECT_ID=about-mukuka
    GCP_LOCATION=us-central1
    VERTEX_MODEL=gemini-1.5-flash
    ```
 
 2. **Authenticate with Application Default Credentials (only if using AI):**
    ```bash
-   gcloud auth application-default login --project=latte-ai-portfolio
+   gcloud auth application-default login --project=about-mukuka
    ```
 
 3. **Run the emulator:**
@@ -103,7 +103,7 @@ For testing locally with the Firebase emulator:
 
 4. **Test locally:**
    ```bash
-   curl -X POST http://localhost:5001/latte-ai-portfolio/us-central1/askAI/api/ask \
+   curl -X POST http://localhost:5001/about-mukuka/us-central1/askAI/api/ask \
      -H "Content-Type: application/json" \
      -d '{"type":"question","value":"Hello!"}'
    ```
@@ -148,5 +148,5 @@ const PORTFOLIO_INFO = {
 
 - Customize the barista persona in `functions/backend/ai/prompt.js`
 - Enable Firestore logging by uncommenting the logging line in `functions/backend/api/ask.js`
-- Monitor usage in [Vertex AI Console](https://console.cloud.google.com/vertex-ai?project=latte-ai-portfolio)
+- Monitor usage in [Vertex AI Console](https://console.cloud.google.com/vertex-ai?project=about-mukuka)
 

@@ -11,7 +11,7 @@ Vertex AI is Google's unified AI platform and integrates seamlessly with Firebas
 #### Step 1: Enable Vertex AI API
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Select your project: `latte-ai-portfolio`
+2. Select your project: `about-mukuka`
 3. Navigate to **APIs & Services** > **Library**
 4. Search for "Vertex AI API"
 5. Click **Enable**
@@ -22,7 +22,7 @@ For Cloud Functions (production):
 - Cloud Functions automatically use the default service account
 - Grant the service account the "Vertex AI User" role:
   ```bash
-  gcloud projects add-iam-policy-binding latte-ai-portfolio \
+  gcloud projects add-iam-policy-binding about-mukuka \
     --member="serviceAccount:PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
     --role="roles/aiplatform.user"
   ```
@@ -42,7 +42,7 @@ firebase functions:config:set ai.provider="vertex" gcp.location="us-central1" ve
 Or set in `.env` for local development:
 ```env
 AI_PROVIDER=vertex
-GCP_PROJECT_ID=latte-ai-portfolio
+GCP_PROJECT_ID=about-mukuka
 GCP_LOCATION=us-central1
 VERTEX_MODEL=gemini-1.5-flash-001
 ```
@@ -74,7 +74,7 @@ OPENAI_MODEL=gpt-3.5-turbo
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `AI_PROVIDER` | AI provider: `vertex` or `openai` | `vertex` | No |
-| `GCP_PROJECT_ID` | GCP Project ID | `latte-ai-portfolio` | Yes (for Vertex AI) |
+| `GCP_PROJECT_ID` | GCP Project ID | `about-mukuka` | Yes (for Vertex AI) |
 | `GCP_LOCATION` | GCP region | `us-central1` | No |
 | `VERTEX_MODEL` | Vertex AI model name | `gemini-1.5-flash-001` | No |
 | `OPENAI_API_KEY` | OpenAI API key | - | Yes (for OpenAI) |
@@ -97,7 +97,7 @@ OPENAI_MODEL=gpt-3.5-turbo
 
 4. Test the endpoint:
    ```bash
-   curl -X POST http://localhost:5001/latte-ai-portfolio/us-central1/askAI/api/ask \
+   curl -X POST http://localhost:5001/about-mukuka/us-central1/askAI/api/ask \
      -H "Content-Type: application/json" \
      -d '{"type":"question","value":"Tell me about your experience"}'
    ```
@@ -116,7 +116,7 @@ OPENAI_MODEL=gpt-3.5-turbo
 
 3. Your endpoint will be available at:
    ```
-   https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask
+   https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask
    ```
 
 ## Troubleshooting

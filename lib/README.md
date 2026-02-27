@@ -40,7 +40,7 @@ const addData = async () => {
 
 ## Project Details
 
-- **Project ID**: `latte-ai-portfolio`
+- **Project ID**: `about-mukuka`
 - **Account**: `mukukankambaa@gmail.com`
 - **Database**: Firestore (default) in `us-central1`
 

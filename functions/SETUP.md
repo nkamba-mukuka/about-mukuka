@@ -6,20 +6,20 @@
 
 ```bash
 # Using gcloud CLI
-gcloud services enable aiplatform.googleapis.com --project=latte-ai-portfolio
+gcloud services enable aiplatform.googleapis.com --project=about-mukuka
 
 # Or via Console:
-# https://console.cloud.google.com/apis/library/aiplatform.googleapis.com?project=latte-ai-portfolio
+# https://console.cloud.google.com/apis/library/aiplatform.googleapis.com?project=about-mukuka
 ```
 
 ### 2. Grant Permissions to Cloud Functions Service Account
 
 ```bash
 # Get your project number
-PROJECT_NUMBER=$(gcloud projects describe latte-ai-portfolio --format="value(projectNumber)")
+PROJECT_NUMBER=$(gcloud projects describe about-mukuka --format="value(projectNumber)")
 
 # Grant Vertex AI User role
-gcloud projects add-iam-policy-binding latte-ai-portfolio \
+gcloud projects add-iam-policy-binding about-mukuka \
   --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
   --role="roles/aiplatform.user"
 ```
@@ -29,7 +29,7 @@ gcloud projects add-iam-policy-binding latte-ai-portfolio \
 ```bash
 firebase functions:config:set \
   ai.provider="vertex" \
-  gcp.project_id="latte-ai-portfolio" \
+  gcp.project_id="about-mukuka" \
   gcp.location="us-central1" \
   vertex.model="gemini-1.5-flash-001"
 ```
@@ -40,7 +40,7 @@ Create a `.env` file in the `functions/` directory:
 
 ```env
 AI_PROVIDER=vertex
-GCP_PROJECT_ID=latte-ai-portfolio
+GCP_PROJECT_ID=about-mukuka
 GCP_LOCATION=us-central1
 VERTEX_MODEL=gemini-1.5-flash-001
 ```
@@ -62,7 +62,7 @@ firebase deploy --only functions
 
 Test the endpoint:
 ```bash
-curl -X POST https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask \
+curl -X POST https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask \
   -H "Content-Type: application/json" \
   -d '{"type":"question","value":"Tell me about your portfolio"}'
 ```

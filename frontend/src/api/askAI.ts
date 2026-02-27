@@ -1,6 +1,9 @@
-import axios from "axios";
+/**
+ * Portfolio chatbot API — all prompts and responses run in the browser.
+ * No backend or network call. Data and logic live in src/lib/portfolioBotData.ts and portfolioBot.ts.
+ */
 
-const API_URL = "https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask";
+import { generateAIResponse } from "../lib/portfolioBot";
 
 export interface AskAIRequest {
   type: "question" | "menu";
@@ -12,19 +15,14 @@ export interface AskAIResponse {
   responseText: string;
 }
 
-export async function askAI(type: "question" | "menu", value: string, short: boolean = false): Promise<string> {
-  try {
-    // Pass raw value to allow hardcoded backend to match keywords correctly
-    const wrappedValue = value;
-
-    const response = await axios.post<AskAIResponse>(API_URL, {
-      type,
-      value: wrappedValue,
-      short
-    });
-    return response.data.responseText;
-  } catch (error) {
-    console.error("Error calling AI API:", error);
-    throw new Error("Failed to get response from barista ☕");
-  }
+/**
+ * Get chatbot response. Runs entirely in the frontend using portfolioBot.
+ */
+export async function askAI(
+  type: "question" | "menu",
+  value: string,
+  short = false
+): Promise<string> {
+  const responseText = generateAIResponse(type, value, short);
+  return responseText;
 }

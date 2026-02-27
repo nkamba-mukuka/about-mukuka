@@ -1,6 +1,6 @@
 # Backend API
 
-This backend handles AI requests for the Latte AI Portfolio project.
+This backend handles AI requests for the portfolio project.
 
 ## Structure
 
@@ -9,7 +9,7 @@ functions/backend/
 ├── api/
 │   └── ask.js        # Handles AI requests endpoint
 ├── ai/
-│   └── prompt.js     # Wraps user input in barista persona
+│   └── prompt.js     # Wraps user input for AI
 └── utils/
     └── firestore.js  # Optional logging helper
 ```
@@ -51,5 +51,5 @@ firebase deploy --only functions
 
 1. Replace the placeholder in `ai/prompt.js` with actual Vertex AI or OpenAI integration
 2. Uncomment the logging line in `api/ask.js` to enable Firestore logging
-3. Update the barista persona prompt with your actual name/portfolio details
+3. Update the AI prompt with your actual name/portfolio details
 

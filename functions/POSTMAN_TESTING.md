@@ -1,12 +1,12 @@
 # Postman Testing Guide
 
-This guide will help you test your Latte AI Portfolio backend API using Postman.
+This guide will help you test the portfolio backend API using Postman.
 
 ## API Endpoint
 
-**Base URL:** `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI`
+**Base URL:** `https://us-central1-about-mukuka.cloudfunctions.net/askAI`
 
-**Full Endpoint:** `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask`
+**Full Endpoint:** `https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask`
 
 ## Setup in Postman
 
@@ -14,12 +14,12 @@ This guide will help you test your Latte AI Portfolio backend API using Postman.
 
 1. Open Postman
 2. Click **New** → **HTTP Request**
-3. Name it: "Latte AI Portfolio - Ask Question"
+3. Name it: "Portfolio - Ask Question"
 
 ### Step 2: Configure the Request
 
 1. **Method:** Select `POST`
-2. **URL:** Enter `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask`
+2. **URL:** Enter `https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask`
 3. **Headers:** 
    - Click on **Headers** tab
    - Add:
@@ -164,7 +164,7 @@ This guide will help you test your Latte AI Portfolio backend API using Postman.
 **Expected Response:**
 ```json
 {
-  "responseText": "Sorry, we don't have that order available currently! ☕ But for more info, contact management via email: mukukankambaa@gmail.com"
+  "responseText": "For more info, contact: mukukankambaa@gmail.com"
 }
 ```
 
@@ -194,7 +194,7 @@ All successful responses will have this format:
 
 ```json
 {
-  "responseText": "The barista's response here..."
+  "responseText": "AI response here..."
 }
 ```
 
@@ -212,7 +212,7 @@ Or:
 
 ```json
 {
-  "responseText": "Oops! Something went wrong ☕"
+  "responseText": "Something went wrong."
 }
 ```
 
@@ -221,12 +221,12 @@ Or:
 You can also test if the function is running:
 
 1. **Method:** `GET`
-2. **URL:** `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/`
+2. **URL:** `https://us-central1-about-mukuka.cloudfunctions.net/askAI/`
 
 **Expected Response:**
 ```json
 {
-  "message": "Latte AI Portfolio API is running ☕"
+  "message": "API is running."
 }
 ```
 

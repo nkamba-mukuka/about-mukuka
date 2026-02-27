@@ -1,66 +1,56 @@
-// MVP: Hardcoded portfolio information with barista-style responses
-// No AI model calls - cost-effective approach for MVP
+// Portfolio chatbot: wide prompt base for professional, casual, Gen Z, and millennial tones
+// No AI model calls - cost-effective approach
 
-// Hardcoded portfolio information
 const PORTFOLIO_INFO = {
   name: "Mukuka Nkamba",
-  title: "Full Stack Software Engineer | Data Analyst",
+  title: "Full Stack Software Engineer | AI & GenAI (RAG) Enthusiast | Data Analyst | Content Creator",
   contact: {
-    phone: "+260962398849",
+    phone: "+260 962 398 849",
     email: "mukukankambaa@gmail.com",
-    linkedin: "linkedin.com/in/mukuka-nkamba-4a9b16290",
-    github: "github.com/nkamba-mukuka",
+    linkedin: "https://www.linkedin.com/in/mukuka-nkamba-4a9b16290/",
+    github: "https://github.com/nkamba-mukuka",
     tiktok: "tiktok.com/@coffee-to-code",
   },
-  bio: "I'm a results-oriented Full Stack Engineer and Data Analyst with 1+ years experience in Golang, PHP, and Next.js. I thrive in backend development and problem-solving. Beyond code, I'm a Women in Tech Advocate and Content Creator dedicated to empowering others in STEM. I love translating business needs into high-quality technical solutions! ☕✨",
+  bio: "Results-driven Full Stack Software Engineer with a strong track record of building scalable, cloud-native, and data-driven applications. Experienced across the full software development lifecycle, with expertise in React, Next.js, Node.js, Firebase, and GCP, and hands-on proficiency in Golang, PHP, PostgreSQL, TypeScript, and Python. Passionate about AI-powered systems (RAG), clean architecture, and collaborating with cross-functional Agile teams to deliver high-quality, user-centric products.",
   skills: {
-    backend: ["Golang", "PHP", "PostgreSQL", "node.js"],
-    frontend: ["React", "Next.js", "TypeScript", "HTML", "CSS", "JavaScript"],
-    frameworks: ["Yii2", "Laravel"],
-    dataAnalysis: ["Data Cleaning & Wrangling", "Data Visualization", "Statistical Analysis", "Critical Thinking", "Business Acumen"],
-    databases: ["SQL", "Gorm"],
-    tools: ["Git", "Postman", "Kubernetes", "Tableau", "Power BI", "Excel", "Google Sheets"],
-    ai: ["AI Fundamentals", "Generative AI", "Retrieval-Augmented Generation (RAG)"],
+    frontend: ["React", "Next.js", "JavaScript", "TypeScript", "HTML", "CSS"],
+    backend: ["Node.js", "Golang", "PHP", "Python"],
+    cloudDevOps: ["Firebase (Auth, Firestore, Cloud Functions)", "Google Cloud Platform", "CI/CD Pipelines"],
+    databases: ["PostgreSQL", "SQL"],
+    tools: ["Git", "Postman", "Tableau", "Power BI", "Excel", "Google Sheets"],
+    ai: ["Retrieval-Augmented Generation (RAG)", "Prompt Engineering", "Data Visualization", "Basic Machine Learning"],
   },
   experience: [
     {
-      role: "Peak Software Developer",
+      role: "Peak Software Developer (Full Stack)",
       company: "Hytel",
       location: "Lusaka, Zambia",
-      period: "August 2025 - Present",
-      description: "Full stack software developer and AI enthusiast working on meaningful, scalable projects in a dynamic, fast-paced environment.",
-      tech: ["AI", "Web Development"],
+      period: "Aug 2025 – Present",
+      description: "Lead development of production-grade, cloud-based web apps (React, Next.js, Node.js, Firebase, GCP). Architect scalable frontends; build backend services with Firestore, Firebase Auth, Cloud Functions. Design CI/CD pipelines. Integrate GenAI and RAG into business workflows. Collaborate with international, cross-functional Agile teams.",
+      tech: ["React", "Next.js", "Node.js", "Firebase", "GCP", "RAG", "CI/CD"],
     },
     {
       role: "Full Stack Developer",
-      company: "Fin360 Limited",
+      company: "Fin360",
       location: "Lusaka, Zambia",
-      period: "May 2025 - August 2025",
-      description: "Developing and maintaining full stack web applications using PHP (Yii2) for backend and JavaScript/HTML/CSS for frontend. Designed authentication, role-based access control, and data reporting tools. Consumed and developed RESTful APIs, improved performance through query optimization.",
-      tech: ["PHP", "Yii2", "JavaScript", "HTML", "CSS", "RESTful APIs"],
+      period: "May 2024 – Aug 2025",
+      description: "Enterprise web apps with PHP (Yii2), JavaScript, HTML, CSS. Auth, RBAC, data reporting. RESTful APIs. SQL optimization.",
+      tech: ["PHP", "Yii2", "JavaScript", "RESTful APIs"],
     },
     {
       role: "Junior Software Engineer",
       company: "Kuala Tech",
       location: "Lusaka, Zambia",
-      period: "May 2024 - February 2025",
-      description: "Built and maintained backend APIs using Golang and PostgreSQL, improving system performance. Developed frontend components with React, Next.js, and TypeScript. Optimized database queries and collaborated in a 4-person Agile team.",
+      period: "May 2024 – Feb 2025",
+      description: "Backend APIs (Golang, PostgreSQL). Frontend components (React, Next.js, TypeScript). Performance tuning, testing, debugging. Sprint planning, code reviews, Postman API integration.",
       tech: ["Golang", "PostgreSQL", "React", "Next.js", "TypeScript"],
     },
     {
-      role: "Web Developer",
-      company: "Nilandi Web Services",
-      location: "Lusaka, Zambia",
-      period: "January 2024 - May 2024",
-      description: "Customized WordPress themes and plugins using PHP, HTML, CSS, and JavaScript. Assisted with site maintenance, performance optimization, and mobile responsiveness.",
-      tech: ["WordPress", "PHP", "HTML", "CSS", "JavaScript"],
-    },
-    {
-      role: "Software Engineer Intern",
-      company: "Cyprus Codes, Atabilisim",
-      location: "Nicosia, Cyprus",
-      period: "September 2021 - August 2022",
-      description: "Created and tested user interfaces using HTML, CSS, React, and Angular. Worked in an Agile environment, participating in code reviews and daily standups. Enhanced front-end performance through optimization and debugging.",
+      role: "Junior Software Engineer Intern",
+      company: "Cyprus Codes (Ata Bilişim)",
+      location: "Cyprus",
+      period: "Sept 2021 – Aug 2022",
+      description: "Web interfaces with HTML, CSS, React, Angular. Frontend optimization, bug fixing, UI improvements. Daily stand-ups, sprint reviews, version control and deployment.",
       tech: ["HTML", "CSS", "React", "Angular"],
     },
   ],
@@ -68,50 +58,76 @@ const PORTFOLIO_INFO = {
     {
       degree: "Bachelor of Science in Software Engineering",
       institution: "Cyprus International University",
-      period: "2019 - 2023",
-      note: "Graduated as the only female in my department",
+      period: "2019 – 2024",
+      note: "Graduated Spring 2023 as the only female in my department.",
     },
     {
       degree: "High School Certificate",
       institution: "Chipembi Girls Secondary School",
-      period: "2014 - 2018",
+      period: "2014 – 2018",
     },
   ],
   certifications: [
-    "HTML5 Certification - Enduonix Learning Solutions",
-    "Backend Master Class [Golang + Postgres + Kubernetes + gRPC] - Udemy",
-    "Tech4Dev WomenTechsters Data Analyst Cohort 4 (Grade: A+)",
+    "HTML5 Certification — Enduonix Learning Solutions",
+    "Backend Master Class (Golang, PostgreSQL, gRPC) — Udemy",
+    "Tech4Dev WomenTechsters Data Analyst Program (Cohort 4)",
+    "Hytel Software Development Bootcamp — 2025",
   ],
   projects: [
     {
       name: "Hytel Elixir",
-      description: "An agile methodology system that empowers teams to deliver exceptional results with intelligent project management, seamless collaboration, and data-driven insights.",
+      description: "Agile methodology system with intelligent project management, collaboration, and data-driven insights.",
       link: "https://elixir-98f15.web.app/",
       tech: ["Project Management", "AI", "Collaboration"],
     },
     {
       name: "Klapton Insurance Zambia (KIZ)",
-      description: "Digital insurance for your home. KIZ serves clients with superior insurance products and services that promote economic growth through expertise.",
+      description: "Digital insurance for your home. Superior products and services for economic growth.",
       link: "https://kiz.co.zm/",
       tech: ["FinTech", "Zambia", "Digital Insurance"],
     },
-    {
-      name: "First Portfolio",
-      description: "My initial showcase of work and design evolution.",
-      link: "https://portfoliox-git-main-mukukankambaa-gmailcoms-projects.vercel.app/",
-      tech: ["Web Design", "Portfolio"],
-    }
   ],
   interests: [
-    "AI & Machine Learning",
+    "AI Agents & Generative AI",
+    "Cloud Architecture",
+    "Clean Code & Software Design",
+    "Technical Writing",
+    "Community Tech Education",
+    "Open-Source",
+    "Product Design",
     "Women in Tech Advocacy",
     "Content Creation",
     "Mentorship",
-    "Problem Solving",
-    "Building Scalable Applications",
     "Cooking",
+    "Traveling",
+    "Art",
     "Interior Design",
   ],
+  // Personal / lifestyle — for casual, Gen Z, millennial questions
+  personal: {
+    cooking: "I love cooking. It's one of my favorite ways to unwind and get creative outside of code.",
+    traveling: "I love traveling and hope to see the world one day. New places and cultures feed my curiosity.",
+    art: "I love art—both appreciating it and the creative side of building products and interfaces.",
+    reading: "I enjoy reading. It keeps me sharp and helps me think differently.",
+    walks: "I like taking walks. Good for clearing my head and getting into a good headspace.",
+    blog: "I run a blog where I share my thoughts and experiences—mostly around tech, growth, and the journey.",
+    songOnRepeat: "Ice 2 Water by Waykins. I've had it on repeat lately.",
+    morningRoutine: "I like to start my day with a warm drink—it helps me wake up and get into a positive mindset before work.",
+    inspiration: "I'm inspired by fulfillment—doing meaningful work and growing personally and professionally.",
+    funFact: "I run a blog where I share my thoughts and experiences. Also graduated as the only woman in my Software Engineering department at uni.",
+  },
+  music: {
+    house: "I love house music in general.",
+    afrocentric: "I love the afrocentric aspect of things—music, culture, design, and how it shows up in what I build and consume.",
+  },
+  hytel: {
+    role: "I'm a Software Developer at Hytel.",
+    typicalDay: "My typical day involves writing code, collaborating with my team, and working on projects that improve our products and processes.",
+    enjoy: "I enjoy the friendliness and supportive culture of the team.",
+    standsOut: "Hytel stands out for its focus on scalability and building solutions that can grow effectively over time.",
+    bootcamp: "I did the Hytel AI Bootcamp (Africa Prime)—explored AI fundamentals, Generative AI, and RAG—then was hired. I contribute to meaningful, scalable projects in a dynamic, fast-paced environment.",
+  },
+  narrative: "I graduated from Cyprus International University (Spring 2023) as the only female in my department. Through internships at Cyprus Codes and Ata Bilişim I gained hands-on front-end experience in Agile teams. After the Hytel AI Bootcamp I was hired by Hytel; I also did the Tech4Dev WomenTechsters Data Analyst program to bridge software engineering with data insights. Beyond tech I'm a Content Creator and Women in Tech Advocate—sharing my journey, mentoring, and creating resources to empower women in STEM. I'm known for adaptability, curiosity, and problem-solving at the intersection of engineering, AI, and mentorship.",
   attributes: [
     "Good communication and interpersonal skills",
     "Ability to work independently and under pressure",
@@ -306,12 +322,33 @@ async function generateAIResponse(type, value, short = false) {
       interests: [
         "interest", "hobby", "hobbies", "like", "fun", "passion", "outside", "free time",
         "what are you into", "what do you like", "what's your passion", "what drives you",
-        "what motivates you", "what are you passionate about", "what do you do for fun"
+        "what motivates you", "what are you passionate about", "what do you do for fun",
+        "cooking", "travel", "traveling", "travelling", "art", "music", "house music", "afrocentric",
+        "reading", "walks", "blog", "fave", "fav", "favorite", "favourite"
+      ],
+      personal: [
+        "cooking", "cook", "travel", "traveling", "art", "reading", "walks", "walk",
+        "blog", "fun fact", "hidden talent", "song on repeat", "currently loving", "on repeat",
+        "start your day", "morning", "routine", "get into a good mood", "warm drink",
+        "inspires you", "inspiration", "who inspires", "what inspires",
+        "typical day", "day in the life", "what do you enjoy", "hytel team", "hytel stand out",
+        "waykins", "ice 2 water", "house music", "afrocentric", "music you like"
+      ],
+      genZSlang: [
+        "vibe", "tea", "spill the tea", "no cap", "fr ", " for real", "slay", "fire", "goals",
+        "lowkey", "highkey", "stan", "main character", "bestie", "period", "it's giving", "ick",
+        "bop", "banger", "obsessed", "literally", "ngl", "tbh", "bet", "say less", "dead",
+        "flex", "clout", "fam", "lit", "mood", "same energy", "that's fire", "no cap"
+      ],
+      millennial: [
+        "adulting", "side hustle", "grind", "hustle", "work-life balance", "self care",
+        "journey", "growth", "mindset", "passion", "crushing it", "networking"
       ],
       hello: [
-        "hello", "hi", "hey", "hai", "sup", "greetings", "hii", "heyy", "heyyy",
-        "what's up", "whatsup", "wassup", "yo", "heya", "howdy", "hola", "hey there",
-        "good morning", "good afternoon", "good evening", "gm", "gn"
+        "hello", "hi", "hey", "hai", "sup", "greetings", "hii", "heyy", "heyyy", "hiya",
+        "what's up", "whatsup", "wassup", "yo", "yoo", "heya", "howdy", "hola", "hey there",
+        "good morning", "good afternoon", "good evening", "gm", "gn",
+        "what's good", "whats good", "wagwan", "how's it going", "what's poppin", "hey bestie", "hi bestie"
       ],
       contact: [
         "contact", "email", "reach", "hire", "phone", "talk", "social", "tiktok", "linkedin", "github",
@@ -400,15 +437,37 @@ async function generateAIResponse(type, value, short = false) {
       if (lowerValue.includes("linkedin")) return generateContactResponse("linkedin");
     }
 
-    // Gen Z / Casual Questions
-    if (lowerValue.includes("what's the tea") || lowerValue.includes("spill the tea") || lowerValue.includes("what's the vibe")) {
-      return generateAboutResponse();
+    // Personal / lifestyle (cooking, travel, art, music, blog, fun fact, morning, inspiration, Hytel day)
+    if (triggers.personal && triggers.personal.some((t) => lowerValue.includes(t))) {
+      if (lowerValue.includes("cook") || lowerValue.includes("food")) return generatePersonalResponse("cooking");
+      if (lowerValue.includes("travel") || lowerValue.includes("see the world")) return generatePersonalResponse("traveling");
+      if (lowerValue.includes("art") && !lowerValue.includes("smart")) return generatePersonalResponse("art");
+      if (lowerValue.includes("reading") || lowerValue.includes("read ")) return generatePersonalResponse("reading");
+      if (lowerValue.includes("walk")) return generatePersonalResponse("walks");
+      if (lowerValue.includes("blog")) return generatePersonalResponse("blog");
+      if (lowerValue.includes("fun fact") || lowerValue.includes("hidden talent")) return generateFunFactResponse();
+      if (lowerValue.includes("song") || lowerValue.includes("on repeat") || lowerValue.includes("waykins") || lowerValue.includes("ice 2 water") || lowerValue.includes("currently loving") || lowerValue.includes("loving lately")) return generateMusicResponse();
+      if (lowerValue.includes("house music") || lowerValue.includes("afrocentric") || lowerValue.includes("music you like") || lowerValue.includes("music do you")) return generateMusicResponse();
+      if (lowerValue.includes("start your day") || lowerValue.includes("morning") || lowerValue.includes("routine") || lowerValue.includes("good mood") || lowerValue.includes("warm drink")) return generateMorningRoutineResponse();
+      if (lowerValue.includes("inspir") || lowerValue.includes("what drives") || lowerValue.includes("what motivates")) return generateInspirationResponse();
+      if (lowerValue.includes("hytel") && (lowerValue.includes("day") || lowerValue.includes("role") || lowerValue.includes("typical") || lowerValue.includes("enjoy") || lowerValue.includes("stand out") || lowerValue.includes("team") || (lowerValue.includes("what") && lowerValue.includes("do")))) return generateHytelDayResponse(lowerValue);
+      return generateInterestsResponse();
     }
-    if (lowerValue.includes("no cap") || lowerValue.includes("fr ") || lowerValue.includes(" for real")) {
-      return "Everything I share is accurate and based on my actual experience. What would you like to know?";
-    }
-    if (lowerValue.includes("slay") || lowerValue.includes("that's fire") || lowerValue.includes("goals")) {
-      return "Thanks! I'm focused on building quality work and helping others in tech. What can I help you with?";
+
+    // Gen Z / casual vibe — respond in kind when question uses slang
+    if (triggers.genZSlang && triggers.genZSlang.some((t) => lowerValue.includes(t))) {
+      if (lowerValue.includes("what's the tea") || lowerValue.includes("spill the tea") || lowerValue.includes("what's the vibe") || lowerValue.includes("vibe")) {
+        return generateAboutResponse(true);
+      }
+      if (lowerValue.includes("no cap") || lowerValue.includes("fr ") || lowerValue.includes(" for real")) {
+        return "No cap—everything I share is from my real experience. What do you wanna know?";
+      }
+      if (lowerValue.includes("slay") || lowerValue.includes("that's fire") || lowerValue.includes("goals") || lowerValue.includes("lit")) {
+        return "Thanks bestie! Just out here building and helping others in tech. What can I tell you?";
+      }
+      if (lowerValue.includes("mood") || lowerValue.includes("same energy")) {
+        return "Big same energy—I'm all about meaningful work, good vibes, and growth. Ask me anything.";
+      }
     }
 
     // Availability & Work Questions
@@ -465,15 +524,19 @@ async function generateAIResponse(type, value, short = false) {
       return "I prefer Golang for backend and React for frontend—they're clean, powerful, and well-suited for scalable applications.";
     }
 
+    // Full story / narrative (longer "about" when asked)
+    if (lowerValue.includes("full story") || lowerValue.includes("your story") || lowerValue.includes("background story") ||
+        (lowerValue.includes("tell me more") && lowerValue.includes("about"))) {
+      return PORTFOLIO_INFO.narrative;
+    }
+
     // Priority 4.5: Basic identity questions (BEFORE collaboration to avoid false matches)
-    // Check "what do you do" but ONLY if it's NOT about fun/hobbies/collaboration (already handled above)
-    if ((lowerValue.includes("who are you") || lowerValue.includes("what do you do") || 
+    if ((lowerValue.includes("who are you") || lowerValue.includes("what do you do") ||
          lowerValue.includes("tell me about yourself") || lowerValue.includes("who is mukuka") ||
          lowerValue.includes("describe yourself") || lowerValue.includes("one sentence") ||
          lowerValue.includes("one-sentence") || lowerValue.includes("in one sentence")) 
         && !lowerValue.includes("fun") && !lowerValue.includes("hobby") && !lowerValue.includes("interest")
         && !lowerValue.includes("collaborate") && !lowerValue.includes("work together")) {
-      // Check if it's asking for a one-sentence description
       if (lowerValue.includes("one sentence") || lowerValue.includes("one-sentence") || lowerValue.includes("in one sentence") ||
           lowerValue.includes("describe yourself in one")) {
         return generateOneSentenceDescription();
@@ -573,9 +636,9 @@ async function generateAIResponse(type, value, short = false) {
     }
     
     if (lowerValue.includes("summarize") && (lowerValue.includes("experience") || lowerValue.includes("3 bullet") || lowerValue.includes("bullet points"))) {
-      return `• Full-stack engineer with 1+ years building scalable web apps (Golang, PHP, React, Next.js)
-• Currently at Hytel working on AI-powered features and project management systems
-• Women in Tech Advocate and Content Creator`;
+      return `• Full-stack engineer: React, Next.js, Node.js, Firebase, GCP—scalable web apps and AI/RAG
+• Currently at Hytel: AI-powered features, RAG pipelines, and project management systems
+• Women in Tech Advocate and Content Creator; love cooking, travel, and art`;
     }
     
     if (lowerValue.includes("what makes mukuka different") || lowerValue.includes("what makes you different") ||
@@ -599,7 +662,7 @@ async function generateAIResponse(type, value, short = false) {
     }
     
     if (lowerValue.includes("top 3 skills") || lowerValue.includes("3 skills only")) {
-      return "1. Backend Development (Golang, PostgreSQL)\n2. Full-Stack Web Apps (React, Next.js)\n3. AI Integration & Problem-Solving";
+      return "1. Full-stack & cloud (React, Next.js, Node.js, Firebase, GCP)\n2. Backend & APIs (Golang, PostgreSQL, REST)\n3. AI/RAG integration & problem-solving";
     }
     
     if (lowerValue.includes("why should i talk to mukuka") || lowerValue.includes("why should i talk to you") ||
@@ -685,10 +748,10 @@ function generateMenuResponse(menuItem) {
  */
 function generateSkillsResponse(single = false) {
   if (single) {
-    return "I'm strongest in backend development with Golang and PostgreSQL, plus full-stack work with React and Next.js.";
+    return "I'm strongest in full-stack: React, Next.js, Node.js, Firebase, GCP, plus backend with Golang and PostgreSQL.";
   }
-  const skills = PORTFOLIO_INFO.skills;
-  return `Backend: ${skills.backend.join(", ")}. Frontend: ${skills.frontend.join(", ")}. Frameworks: ${skills.frameworks.join(", ")}. Databases: ${skills.databases.join(", ")}. I also work with AI technologies including RAG systems.`;
+  const s = PORTFOLIO_INFO.skills;
+  return `Frontend: ${s.frontend.join(", ")}. Backend: ${s.backend.join(", ")}. Cloud & DevOps: ${s.cloudDevOps.join(", ")}. Databases: ${s.databases.join(", ")}. Tools: ${s.tools.join(", ")}. AI & Data: ${s.ai.join(", ")}.`;
 }
 
 /**
@@ -700,17 +763,20 @@ function generateProjectsResponse() {
 }
 
 /**
- * Generate response about the person
+ * Generate response about the person (professional or casual/Gen Z tone)
  */
-function generateAboutResponse() {
-  return "I'm Mukuka Nkamba, a Full Stack Software Engineer and AI enthusiast. I build scalable web applications using Golang, PHP, PostgreSQL, React, and Next.js. I focus on turning business needs into reliable technical solutions.";
+function generateAboutResponse(casual = false) {
+  if (casual) {
+    return "I'm Mukuka—Full Stack Software Engineer and AI enthusiast. I build scalable web apps with React, Next.js, Node.js, Firebase, and GCP, and I'm big on RAG and clean code. I also love cooking, traveling, art, and house music. Women in Tech advocate and content creator. What do you wanna know?";
+  }
+  return "I'm Mukuka Nkamba, a Full Stack Software Engineer and AI & GenAI (RAG) enthusiast. I build scalable, cloud-native applications with React, Next.js, Node.js, Firebase, and GCP, and I'm proficient in Golang, PHP, PostgreSQL, TypeScript, and Python. I focus on turning business needs into reliable technical solutions and I'm a Content Creator and Women in Tech Advocate.";
 }
 
 /**
  * Generate one-sentence description (for receipt-style responses)
  */
 function generateOneSentenceDescription() {
-  return "I'm Mukuka Nkamba, a Full Stack Software Engineer and AI enthusiast who builds scalable web applications and turns business needs into high-quality technical solutions.";
+  return "I'm Mukuka Nkamba, a Full Stack Software Engineer and AI & GenAI (RAG) enthusiast who builds scalable, cloud-native applications and loves cooking, travel, and art.";
 }
 
 /**
@@ -721,7 +787,63 @@ function generateInterestsResponse(single = false) {
     const hobby = uniqueInterests[Math.floor(Math.random() * uniqueInterests.length)];
     return `I'm passionate about ${hobby}.`;
   }
-  return "I'm passionate about AI, mentorship, and building scalable applications. Beyond coding, I'm a Women in Tech Advocate and Content Creator. I also enjoy cooking and interior design.";
+  return "I'm into AI, cloud architecture, clean code, and mentorship. Beyond that I love cooking, traveling, art, reading, and taking walks. I'm a Women in Tech Advocate and Content Creator—blog, mentorship, and resources for women in STEM. I also love house music and the afrocentric side of things.";
+}
+
+/**
+ * Personal / lifestyle (cooking, travel, art, reading, walks, blog)
+ */
+function generatePersonalResponse(topic) {
+  const p = PORTFOLIO_INFO.personal;
+  if (p[topic]) return p[topic];
+  return generateInterestsResponse();
+}
+
+/**
+ * Fun fact / hidden talent
+ */
+function generateFunFactResponse() {
+  const p = PORTFOLIO_INFO.personal;
+  return p.funFact || "I run a blog where I share my thoughts and experiences. I also graduated as the only woman in my Software Engineering department at uni.";
+}
+
+/**
+ * Music — song on repeat, house music, afrocentric
+ */
+function generateMusicResponse() {
+  const p = PORTFOLIO_INFO.personal;
+  const m = PORTFOLIO_INFO.music;
+  const parts = [];
+  if (p.songOnRepeat) parts.push(p.songOnRepeat);
+  if (m.house) parts.push(m.house);
+  if (m.afrocentric) parts.push(m.afrocentric);
+  return parts.length ? parts.join(" ") : "I love house music and the afrocentric aspect of things. Lately I've had Ice 2 Water by Waykins on repeat.";
+}
+
+/**
+ * Morning routine / start your day
+ */
+function generateMorningRoutineResponse() {
+  return PORTFOLIO_INFO.personal.morningRoutine || "I like to start my day with a warm drink—it helps me wake up and get into a positive mindset before work.";
+}
+
+/**
+ * Inspiration / what drives you
+ */
+function generateInspirationResponse() {
+  return PORTFOLIO_INFO.personal.inspiration || "I'm inspired by fulfillment—doing meaningful work and growing personally and professionally.";
+}
+
+/**
+ * Hytel — role, typical day, what you enjoy, what makes Hytel stand out
+ */
+function generateHytelDayResponse(question) {
+  const h = PORTFOLIO_INFO.hytel;
+  if (question.includes("role") || question.includes("what do you do at hytel")) return h.role + " " + h.typicalDay;
+  if (question.includes("typical") || question.includes("day")) return h.typicalDay;
+  if (question.includes("enjoy") || question.includes("team")) return h.enjoy;
+  if (question.includes("stand out")) return h.standsOut;
+  return h.role + " " + h.typicalDay + " " + h.enjoy + " " + h.standsOut;
 }
 
 /**
@@ -731,7 +853,7 @@ function generateGreetingResponse() {
   const greeting = BARISTA_RESPONSES.greetings[
     Math.floor(Math.random() * BARISTA_RESPONSES.greetings.length)
   ];
-  return `${greeting} I'm here to spill the tea on Mukuka's journey. ✨ Ask me about skills, projects, or experience—I'm an open book, babe! 💕`;
+  return `${greeting} I'm here to answer questions about Mukuka. Ask me about her work (skills, experience, projects), contact, or personal stuff—cooking, travel, art, music, what she's listening to, her day at Hytel, or what inspires her. Go ahead!`;
 }
 
 /**
@@ -739,41 +861,43 @@ function generateGreetingResponse() {
  * PITCH MODE: No contact info, focus on value and impact
  */
 function generatePitchResponse() {
-  return `Ouuu, here's what I bring to the table! ✨
+  return `Here's what I bring to the table:
 
-• Problem-solver who builds scalable web apps and AI-powered features (Golang, React, PostgreSQL)
-• Full-stack engineer with experience at Hytel, Fin360, and Kuala Tech—I deliver quality work on time
-• Women in Tech Advocate who brings diverse perspectives and a collaborative, learning-focused approach
+• Full-stack engineer: React, Next.js, Node.js, Firebase, GCP—scalable web apps and AI/RAG features
+• Experience at Hytel, Fin360, Kuala Tech—I deliver quality work on time and collaborate in Agile teams
+• Women in Tech Advocate and Content Creator—diverse perspectives, mentorship, and clear communication
 
-I'm reliable, communicate well, and I think about business impact—not just code. 💕`;
+I focus on business impact, clean code, and reliability.`;
 }
 
 /**
  * Generate contact response
  */
 function generateContactResponse(filter = null) {
-  const contact = PORTFOLIO_INFO.contact;
-
-  if (filter === "email") return `Email: ${contact.email}`;
-  if (filter === "phone") return `Phone: ${contact.phone}`;
-  if (filter === "github") return `GitHub: ${contact.github}`;
-  if (filter === "linkedin") return `LinkedIn: ${contact.linkedin}`;
-
-  return `Email: ${contact.email}. Phone: ${contact.phone}. LinkedIn: ${contact.linkedin}. GitHub: ${contact.github}. TikTok: ${contact.tiktok}`;
+  const c = PORTFOLIO_INFO.contact;
+  if (filter === "email") return c.email;
+  if (filter === "phone") return c.phone;
+  if (filter === "github") return c.github;
+  if (filter === "linkedin") return c.linkedin;
+  return `Email: ${c.email}. Phone: ${c.phone}. LinkedIn: ${c.linkedin}. GitHub: ${c.github}.`;
 }
 
 /**
  * Generate response about work experience
  */
 function generateExperienceResponse() {
-  return "I've worked at Kuala Tech, Fin360, and currently at Hytel as a Peak Software Developer. I build scalable solutions and collaborate in Agile teams, focusing on delivering high-quality results.";
+  const exp = PORTFOLIO_INFO.experience;
+  const current = exp[0];
+  return `I'm currently ${current.role} at ${current.company} (${current.period}). Before that: Full Stack Developer at Fin360, Junior Software Engineer at Kuala Tech, and Software Engineer Intern at Cyprus Codes. I build scalable, cloud-native apps and work with international Agile teams.`;
 }
 
 /**
  * Generate response about education
  */
 function generateEducationResponse() {
-  return "I graduated with a Bachelor of Science in Software Engineering from Cyprus International University (2019-2023), where I was the only female in my department. I've also completed specialized data analysis training.";
+  const edu = PORTFOLIO_INFO.education;
+  const uni = edu[0];
+  return `I graduated with a ${uni.degree} from ${uni.institution} (${uni.period})—${uni.note} I also have a High School Certificate from Chipembi Girls Secondary School. Plus Tech4Dev WomenTechsters Data Analyst program and Hytel AI Bootcamp.`;
 }
 
 /**
@@ -820,10 +944,10 @@ function generateContentResponse() {
 }
 
 /**
- * Generate default response for unrecognized questions
+ * Generate default response for unrecognized questions — suggest topics
  */
 function generateDefaultResponse() {
-  return "I don't have enough info to answer that yet. Feel free to email me at " + PORTFOLIO_INFO.contact.email + " for more details.";
+  return "I'm not sure how to answer that one. You can ask me about my background, skills, experience, projects, or contact. Or try: what I'm into (cooking, travel, art, music), my typical day at Hytel, fun facts, or what inspires me. For more: " + PORTFOLIO_INFO.contact.email;
 }
 
 /**
