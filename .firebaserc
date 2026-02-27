@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "latte-ai-portfolio"
+    "default": "about-mukuka",
+    "dev": "about-mukuka"
   },
   "targets": {},
   "etags": {}

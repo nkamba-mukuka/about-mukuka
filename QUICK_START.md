@@ -19,9 +19,9 @@ npm install
 Create `frontend/.env`:
 ```env
 REACT_APP_FIREBASE_API_KEY=AIzaSyD9U7LXhlEKF2LuwckjcaKo33ktOv5rGUQ
-REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.firebasestorage.app
+REACT_APP_FIREBASE_AUTH_DOMAIN=about-mukuka.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=about-mukuka
+REACT_APP_FIREBASE_STORAGE_BUCKET=about-mukuka.firebasestorage.app
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
 REACT_APP_FIREBASE_APP_ID=1:1014842419753:web:73017c4440279bad514a38
 REACT_APP_FIREBASE_MEASUREMENT_ID=G-PR6EXF8MFE
@@ -65,9 +65,9 @@ firebase deploy
 
 ## 🔗 Important URLs
 
-- **Live Site**: https://latte-ai-portfolio.web.app
-- **API Endpoint**: https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask
-- **Firebase Console**: https://console.firebase.google.com/project/latte-ai-portfolio
+- **Live Site**: https://about-mukuka.web.app
+- **API Endpoint**: https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask
+- **Firebase Console**: https://console.firebase.google.com/project/about-mukuka
 
 ---
 

@@ -5,12 +5,12 @@ This guide will help you set up Firestore in the frontend for production use (no
 ## Step 1: Get Firebase Configuration
 
 1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Select your project: `latte-ai-portfolio`
+2. Select your project: `about-mukuka`
 3. Click the gear icon ⚙️ > **Project Settings**
 4. Scroll down to **Your apps** section
 5. If you don't have a web app yet:
    - Click **Add app** > **Web** (</> icon)
-   - Register your app with a nickname (e.g., "Latte AI Portfolio Web")
+   - Register your app with a nickname (e.g., "About Mukuka Web")
    - Copy the configuration values
 
 ## Step 2: Create Environment File
@@ -26,10 +26,10 @@ Add your Firebase configuration:
 
 ```env
 REACT_APP_FIREBASE_API_KEY=your-api-key-here
-REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
+REACT_APP_FIREBASE_AUTH_DOMAIN=about-mukuka.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=about-mukuka
+REACT_APP_FIREBASE_STORAGE_BUCKET=about-mukuka.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=119916570168
 REACT_APP_FIREBASE_APP_ID=your-app-id-here
 REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id-here
 ```
@@ -60,7 +60,7 @@ Current rules allow read/write to all documents. Update these for production sec
 
 ## Step 5: View Logged Interactions
 
-1. Go to [Firestore Console](https://console.firebase.google.com/project/latte-ai-portfolio/firestore)
+1. Go to [Firestore Console](https://console.firebase.google.com/project/about-mukuka/firestore)
 2. You should see an `interactions` collection
 3. Each interaction will have:
    - `type`: "question" or "menu"

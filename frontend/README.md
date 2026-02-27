@@ -55,9 +55,9 @@ Create `.env` file:
 
 ```env
 REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.firebasestorage.app
+REACT_APP_FIREBASE_AUTH_DOMAIN=about-mukuka.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=about-mukuka
+REACT_APP_FIREBASE_STORAGE_BUCKET=about-mukuka.firebasestorage.app
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
 REACT_APP_FIREBASE_APP_ID=your_app_id
 REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
@@ -111,7 +111,7 @@ See `FIRESTORE_SETUP.md` for detailed setup instructions.
 ### API Endpoint
 
 Backend API endpoint is configured in `src/api/askAI.ts`:
-- Production: `https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask`
+- Production: `https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask`
 
 ## 📚 Documentation
 
@@ -197,4 +197,4 @@ firebase deploy --only hosting
 
 ---
 
-**Live Site**: [latte-ai-portfolio.web.app](https://latte-ai-portfolio.web.app)
+**Live Site**: [about-mukuka.web.app](https://about-mukuka.web.app)

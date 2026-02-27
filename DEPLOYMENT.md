@@ -2,12 +2,12 @@
 
 ## Overview
 
-This guide covers deploying the Latte AI Portfolio to production using Firebase.
+This guide covers deploying the portfolio to production using Firebase.
 
 ## Prerequisites
 
 1. Firebase CLI installed: `npm install -g firebase-tools`
-2. Firebase project created: `latte-ai-portfolio`
+2. Firebase project created: `about-mukuka`
 3. Node.js 18+ installed
 4. All environment variables configured
 
@@ -34,7 +34,7 @@ firebase deploy --only functions
 **Expected Output:**
 ```
 ✔  functions[askAI(us-central1)] Successful update operation.
-Function URL (askAI(us-central1)): https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI
+Function URL (askAI(us-central1)): https://us-central1-about-mukuka.cloudfunctions.net/askAI
 ```
 
 ### 3. Deploy Frontend (Hosting)
@@ -46,10 +46,26 @@ firebase deploy --only hosting
 
 **Expected Output:**
 ```
-✔  hosting[latte-ai-portfolio]: file upload complete
+✔  hosting[about-mukuka]: file upload complete
 ✔  Deploy complete!
-Hosting URL: https://latte-ai-portfolio.web.app
+Hosting URL: https://about-mukuka.web.app
 ```
+
+#### Deploy to a different URL (keep current site unchanged)
+
+To run this refactored portfolio on a **separate** URL while keeping the existing site live:
+
+1. **Firebase Console** → your project → Hosting → **Add another site** (e.g. `about-mukuka-v2`).
+2. **From project root**, apply the new site as a hosting target:
+   ```bash
+   firebase target:apply hosting v2 about-mukuka-v2
+   ```
+3. **Build and deploy only to the new site:**
+   ```bash
+   cd frontend && npm run build && cd ..
+   firebase deploy --only hosting:v2
+   ```
+4. The refactored site will be available at e.g. `https://about-mukuka-v2.web.app` (or the custom domain you attach). The original site (`about-mukuka`) is unchanged.
 
 ### 4. Deploy Everything
 
@@ -67,9 +83,9 @@ This deploys both functions and hosting.
 Create `frontend/.env` with:
 ```env
 REACT_APP_FIREBASE_API_KEY=your_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.firebasestorage.app
+REACT_APP_FIREBASE_AUTH_DOMAIN=about-mukuka.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=about-mukuka
+REACT_APP_FIREBASE_STORAGE_BUCKET=about-mukuka.firebasestorage.app
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
 REACT_APP_FIREBASE_APP_ID=your_app_id
 REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
@@ -111,12 +127,12 @@ service cloud.firestore {
 
 ### Check Backend
 ```bash
-curl https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/
+curl https://us-central1-about-mukuka.cloudfunctions.net/askAI/
 # Should return: {"message":"Latte AI Portfolio API is running ☕"}
 ```
 
 ### Check Frontend
-Visit: https://latte-ai-portfolio.web.app
+Visit: https://about-mukuka.web.app
 
 ### Check Firestore
 1. Go to Firebase Console
@@ -176,7 +192,7 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
-          projectId: latte-ai-portfolio
+          projectId: about-mukuka
 ```
 
 ## Rollback
@@ -191,7 +207,6 @@ If deployment fails:
 ### Frontend
 - Enable compression in `firebase.json`
 - Use CDN for static assets
-- Optimize video files (compress before upload)
 
 ### Backend
 - Monitor function execution time

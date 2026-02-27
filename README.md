@@ -1,300 +1,216 @@
-# Latte AI Portfolio ☕✨
+# Latte AI Portfolio
 
-An interactive, video-based portfolio experience where an AI barista answers questions about Mukuka Nkamba's work, skills, and experience. Instead of traditional portfolio pages, visitors explore through a cozy coffee shop interface where responses are served as coffee.
+Portfolio site for **Mukuka Nkamba**.  
+**Free deployment:** frontend on Firebase Hosting (Spark) + chatbot backend on [Render](https://render.com) (free tier). No upgrade to Firebase Blaze needed — see [Free deployment (no Blaze)](#free-deployment-no-blaze-no-paid-plans) below. — Full Stack Software Engineer | AI & GenAI (RAG) Enthusiast | Data Analyst | Content Creator. Includes an AI chatbot that answers questions about her work, skills, experience, and interests (professional, casual, and Gen Z / millennial phrasing).
 
-## 🎯 Project Overview
+## What’s in this repo
 
-**Latte AI Portfolio** is a unique portfolio website that combines:
-- **Video-based UI** - Immersive coffee shop experience with video backgrounds
-- **AI-Powered Barista** - Intelligent responses with a girly, vibey personality
-- **Interactive Menu** - Coffee-themed menu items for different portfolio sections
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+- **Frontend (React + TypeScript)** — Multi-page portfolio (Home, Case Studies, Work With Me, For Hiring Managers) and an **AI** page that talks to the backend.
+- **Backend (Firebase Cloud Functions)** — One HTTP function `askAI` that serves `POST /api/ask` with hardcoded, keyword-based responses (no external AI API).
+- **Firestore** — Optional interaction logging (configurable in code).
 
-## 🏗️ Architecture
+## Tech stack
 
-### System Components
+| Layer    | Tech |
+|----------|------|
+| Frontend | React, TypeScript, Tailwind CSS, React Router, Axios |
+| Backend  | Node.js, Express, Firebase Cloud Functions |
+| Hosting  | Firebase Hosting (frontend) |
+| API      | Cloud Function `askAI` at `/api/ask` |
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Frontend (React + TypeScript)             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   App.tsx    │  │  Components  │  │   Services   │      │
-│  │  (Views)     │  │  (UI)        │  │  (API/Fire)  │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│         Backend API (Firebase Cloud Functions)              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │  Express     │  │  AI Prompt  │  │  Firestore   │      │
-│  │  Router      │  │  Handler    │  │  Logger      │      │
-│  └──────────────┘  └──────────────┘  └──────────────┘      │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Firestore Database                       │
-│              (Interaction Logging & Analytics)              │
-└─────────────────────────────────────────────────────────────┘
-```
+## Quick start (local)
 
-### Tech Stack
+### 1. Install and run the frontend
 
-**Frontend:**
-- React 19 + TypeScript
-- Tailwind CSS for styling
-- Axios for API calls
-- Firebase SDK for Firestore integration
-
-**Backend:**
-- Node.js + Express
-- Firebase Cloud Functions
-- Hardcoded AI responses (MVP approach - cost-effective)
-
-**Database:**
-- Firestore (production) for interaction logging
-
-**Deployment:**
-- Firebase Hosting (frontend)
-- Firebase Cloud Functions (backend)
-
-## 📁 Project Structure
-
-```
-latte-ai-portfolio/
-├── frontend/                 # React frontend application
-│   ├── src/
-│   │   ├── api/             # API integration
-│   │   │   └── askAI.ts
-│   │   ├── components/      # React components
-│   │   │   ├── QuestionInput.tsx
-│   │   │   ├── Barista.tsx  # (Unused - 3D component)
-│   │   │   └── MenuBoard.tsx # (Unused - 3D component)
-│   │   ├── config/          # Configuration files
-│   │   │   └── firebase.ts
-│   │   ├── services/        # Service layer
-│   │   │   └── firestore.ts
-│   │   ├── App.tsx          # Main application component
-│   │   └── index.tsx        # Entry point
-│   ├── public/              # Static assets (videos, images)
-│   └── package.json
-│
-├── functions/                # Firebase Cloud Functions
-│   ├── backend/
-│   │   ├── api/             # API routes
-│   │   │   └── ask.js
-│   │   ├── ai/              # AI response generation
-│   │   │   └── prompt.js
-│   │   └── utils/           # Utilities
-│   │       └── firestore.js
-│   ├── src/
-│   │   └── index.ts         # Functions entry point
-│   └── package.json
-│
-├── apps/docs/               # Documentation
-│   ├── system-architecture.md
-│   ├── mvp-component-breakdown.md
-│   ├── mvp-data-flow.md
-│   └── functional-requirements.md
-│
-├── firebase.json             # Firebase configuration
-├── firestore.rules          # Firestore security rules
-└── README.md                # This file
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ (or 20+ recommended)
-- npm or yarn
-- Firebase CLI (`npm install -g firebase-tools`)
-- Firebase project with Firestore enabled
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd latte-ai-portfolio
-   ```
-
-2. **Set up Firebase configuration**
-   ```bash
-   # Create frontend/.env file
-   cd frontend
-   cp .env.example .env
-   # Edit .env with your Firebase config values
-   ```
-
-3. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-4. **Install backend dependencies**
-   ```bash
-   cd functions
-   npm install
-   ```
-
-### Running Locally
-
-**Frontend:**
 ```bash
 cd frontend
+npm install
 npm start
-# Opens http://localhost:3000
 ```
 
-**Backend (deployed to Firebase):**
-The backend runs on Firebase Cloud Functions. To test locally, you can use the Firebase emulator (optional):
+App runs at **http://localhost:3000** (or the port shown in the terminal).
+
+### 2. Run the AI backend locally (so the chatbot works)
+
+In a **second terminal**:
+
 ```bash
 cd functions
-npm run serve
+npm install
+npm run serve:local
 ```
 
-### Deployment
+This starts the API at **http://localhost:5001/api/ask**.  
+The frontend in development is configured to use this URL automatically.
 
-**Deploy Backend:**
-```bash
-cd functions
-firebase deploy --only functions
-```
+### 3. Use the AI page
 
-**Deploy Frontend:**
-```bash
-cd frontend
-npm run build
-firebase deploy --only hosting
-```
+Open **http://localhost:3000/ai** and ask things like “hi”, “tell me about yourself”, “what’s your tech stack?”, “contact”, “cooking”, “what do you do at Hytel?”, etc.
 
-**Deploy Everything:**
-```bash
-firebase deploy
-```
+## Deployment
 
-## 🎨 Features
-
-### Views
-
-1. **Shop View** - Main coffee shop interface with menu and barista video
-2. **Coffee View** - Displays AI response as a coffee receipt
-3. **Chat View** - Interactive chat interface with the barista
-4. **About View** - Introduction to the portfolio
-
-### Menu Items
-
-- **Origin Roast (Americano)** - About Me
-- **Java Script Injection (Espresso)** - Skills
-- **Full-Stack Filter (Cold Brew)** - Projects
-- **Legacy Blend (Macchiato)** - Experience
-- **Academic Steam (Flat White)** - Education
-- **Matcha Networking** - Contact
-
-### AI Personality
-
-The AI barista has a girly, vibey personality with expressions like:
-- "Ouuu"
-- "Opps"
-- "Too good"
-- "Honestly"
-- "Like"
-
-## 📱 Responsive Design
-
-The application is fully responsive with breakpoints:
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
-
-Key responsive features:
-- Adaptive video positioning
-- Flexible menu layout (stacks on mobile)
-- Responsive text sizes
-- Touch-friendly interactions
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create `frontend/.env`:
-```env
-REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=latte-ai-portfolio.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=latte-ai-portfolio
-REACT_APP_FIREBASE_STORAGE_BUCKET=latte-ai-portfolio.firebasestorage.app
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1014842419753
-REACT_APP_FIREBASE_APP_ID=your_app_id
-REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
-```
-
-### Firebase Configuration
-
-See `frontend/FIRESTORE_SETUP.md` for detailed Firestore setup instructions.
-
-## 📚 Documentation
-
-- [System Architecture](./apps/docs/ystem-architecture.md)
-- [Component Breakdown](./apps/docs/mvp-component-breakdown.md)
-- [Data Flow](./apps/docs/mvp-data-flow.md)
-- [Functional Requirements](./apps/docs/functional-requirements.md)
-- [Backend Setup](./functions/README.md)
-- [Firestore Setup](./frontend/FIRESTORE_SETUP.md)
-- [Postman Testing](./functions/POSTMAN_TESTING.md)
-
-## 🧪 Testing
-
-### API Testing
-
-Use Postman or curl to test the backend:
-
-```bash
-curl -X POST https://us-central1-latte-ai-portfolio.cloudfunctions.net/askAI/api/ask \
-  -H "Content-Type: application/json" \
-  -d '{"type":"question","value":"What are your skills?"}'
-```
-
-See [POSTMAN_TESTING.md](./functions/POSTMAN_TESTING.md) for more examples.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **Firebase config errors**
-   - Ensure `.env` file exists in `frontend/` directory
-   - Verify all environment variables are set
-   - Restart dev server after updating `.env`
-
-2. **API not responding**
-   - Check Firebase Functions are deployed
-   - Verify CORS is enabled
-   - Check browser console for errors
-
-3. **Videos not loading**
-   - Ensure video files are in `frontend/public/`
-   - Check file names match in code
-   - Verify video formats are supported
-
-## 📝 License
-
-This project is private and proprietary.
-
-## 👤 Author
-
-**Mukuka Nkamba**
-- Full Stack Software Engineer | Data Analyst
-- Email: mukukankambaa@gmail.com
-- LinkedIn: [linkedin.com/in/mukuka-nkamba-4a9b16290](https://linkedin.com/in/mukuka-nkamba-4a9b16290)
-- GitHub: [github.com/nkamba-mukuka](https://github.com/nkamba-mukuka)
-
-## 🙏 Acknowledgments
-
-- Built with React, Firebase, and lots of coffee ☕
-- Inspired by the cozy coffee shop atmosphere
+You can run the full site (including the chatbot) **for free** without upgrading Firebase to Blaze.
 
 ---
 
-**Live Site**: [latte-ai-portfolio.web.app](https://latte-ai-portfolio.web.app)
+### Free deployment (no Blaze, no paid plans)
+
+Use **Firebase Hosting** (free Spark plan) for the frontend and **Render.com** (free tier) for the AI backend.
+
+#### Step 1 — Deploy the AI backend to Render (free)
+
+1. Create an account at [render.com](https://render.com) (free).
+2. **New → Web Service**.
+3. Connect your GitHub repo (this project).
+4. Set:
+   - **Root Directory:** `functions`
+   - **Build Command:** `npm install`
+   - **Start Command:** `node serve-local.js`
+   - **Instance Type:** Free
+5. Click **Create Web Service**. Wait for the first deploy to finish.
+6. Copy your service URL, e.g. `https://latte-ai-chatbot-api.onrender.com`.  
+   The API path is `/api/ask`, so the full URL is:  
+   `https://YOUR-SERVICE-NAME.onrender.com/api/ask`
+
+#### Step 2 — Point the frontend to your Render API
+
+In **`frontend/.env`** add (use your real Render URL):
+
+```env
+REACT_APP_AI_API_URL=https://YOUR-SERVICE-NAME.onrender.com/api/ask
+```
+
+Example: if your Render service is `https://latte-ai-chatbot-api.onrender.com`, then:
+
+```env
+REACT_APP_AI_API_URL=https://latte-ai-chatbot-api.onrender.com/api/ask
+```
+
+#### Step 3 — Build and deploy the frontend to Firebase
+
+```bash
+cd frontend
+npm run build
+cd ..
+npx firebase-tools deploy --only hosting
+```
+
+Use `npx firebase-tools` if `firebase` is not in your PATH. Log in first with `npx firebase-tools login` if needed.
+
+Your site will be live at **https://about-mukuka.web.app** (or your Firebase Hosting URL), and the chatbot will call your Render API. No Blaze plan required.
+
+**Note:** On Render’s free tier the service may spin down after inactivity; the first request after a while can be slow (cold start). For always-on hosting you’d need a paid plan or Firebase Blaze for Cloud Functions.
+
+#### Resume (CV) download — "file wasn't available on site"
+
+If the "Download resume" button fails on the live site (e.g. "file wasn't available"), use a **direct URL** to your PDF:
+
+1. Upload your CV PDF somewhere that gives a direct link, e.g. Firebase Storage (make file public, copy download URL) or Google Drive (share "Anyone with the link", use a direct-download link).
+2. In **`frontend/.env`** add: `REACT_APP_CV_URL=https://your-direct-pdf-url-here`
+3. Rebuild and redeploy the frontend. The button will open that URL; users can download from there.
+
+If you prefer to serve the PDF from the same site, put the file at **`frontend/public/cv.pdf`** and redeploy so it's included in the build (use when `REACT_APP_CV_URL` is not set).
+
+---
+
+### Paid option: Firebase Blaze (Cloud Functions)
+
+If you later upgrade Firebase to the **Blaze** plan, you can host the backend on Firebase instead of Render:
+
+1. [Upgrade the project to Blaze](https://console.firebase.google.com/project/about-mukuka/usage/details).
+2. From repo root:
+   ```bash
+   cd frontend && npm run build && cd ..
+   cd functions && npm run build && cd ..
+   npx firebase-tools deploy
+   ```
+3. Remove or leave `REACT_APP_AI_API_URL` unset in `frontend/.env` so the production build uses the default Cloud Function URL.
+
+---
+
+### How the chatbot URL is chosen
+
+- **Development** (`npm start`): uses **http://localhost:5001/api/ask**. Run `npm run serve:local` in `functions/` so the chatbot works locally.
+- **Production** (deployed build):
+  - If **`REACT_APP_AI_API_URL`** is set (e.g. your Render URL), the app uses that.
+  - Otherwise it uses **https://us-central1-about-mukuka.cloudfunctions.net/askAI/api/ask** (only works if you’ve deployed Functions on Blaze).
+
+---
+
+### If something fails
+
+- **“command not found: firebase”**  
+  Use `npx firebase-tools` instead of `firebase`.
+
+- **Chatbot “Request failed” on the live site**  
+  - Using free setup: ensure the backend is deployed on Render and `REACT_APP_AI_API_URL` in `frontend/.env` matches your Render URL (including `/api/ask`), then rebuild and redeploy hosting.
+  - Using Blaze: ensure `askAI` is deployed (`npx firebase-tools deploy --only functions`) and the project is on Blaze.
+
+## Project structure (main pieces)
+
+```
+├── frontend/
+│   ├── src/
+│   │   ├── api/askAI.ts          # Calls AI API (localhost in dev, Cloud Function in prod)
+│   │   ├── components/           # Layout, FloatingBlobs, RevealSection
+│   │   ├── content/site.ts       # CV and site copy (single source of truth)
+│   │   ├── pages/                # HomePage, CaseStudiesPage, WorkWithMePage, ForHiringManagersPage, AIPage
+│   │   └── ...
+│   └── build/                    # Output of `npm run build` (deployed to Hosting)
+│
+├── functions/
+│   ├── src/index.ts              # Express app → askAI Cloud Function
+│   ├── backend/
+│   │   ├── api/ask.js            # POST /api/ask handler
+│   │   └── ai/prompt.js          # Keyword-based response logic (no external AI)
+│   ├── serve-local.js            # Run API locally (npm run serve:local)
+│   └── lib/                      # Compiled output (used when deploying)
+│
+├── firebase.json                 # Hosting + Functions + Firestore config
+├── .firebaserc                   # Project: about-mukuka
+└── README.md
+```
+
+## Environment variables
+
+**Frontend (`frontend/.env`)**
+
+- Firebase config: `REACT_APP_FIREBASE_*` (see `frontend/.env.example` or Firebase Console).
+- **`REACT_APP_AI_API_URL`** — **Required for free production:** set this to your Render backend URL (e.g. `https://your-app.onrender.com/api/ask`) before `npm run build` so the deployed site uses your Render API. Optional for local dev (app uses localhost when not set).
+
+**Functions**
+
+- No env vars required for the hardcoded AI. If you add Firestore or other services, configure them in the Firebase Console or via environment config for Cloud Functions.
+
+## Testing the API
+
+**Local:**
+
+```bash
+curl -X POST http://localhost:5001/api/ask \
+  -H "Content-Type: application/json" \
+  -d '{"type":"question","value":"hi"}'
+```
+
+**Production (after deploy):**  
+Use your Render URL if you used the free setup, or the Cloud Function URL if you’re on Blaze:
+
+```bash
+# Replace with your Render URL or Cloud Function URL
+curl -X POST https://YOUR-RENDER-URL.onrender.com/api/ask \
+  -H "Content-Type: application/json" \
+  -d '{"type":"question","value":"hi"}'
+```
+
+## Author & contact
+
+**Mukuka Nkamba**  
+Full Stack Software Engineer | AI & GenAI (RAG) Enthusiast | Data Analyst | Content Creator  
+
+- Email: mukukankambaa@gmail.com  
+- LinkedIn: [linkedin.com/in/mukuka-nkamba-4a9b16290](https://www.linkedin.com/in/mukuka-nkamba-4a9b16290/)  
+- GitHub: [github.com/nkamba-mukuka](https://github.com/nkamba-mukuka)
+
+---
+
+**Live site (after deploy):** [about-mukuka.web.app](https://about-mukuka.web.app)
